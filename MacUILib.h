@@ -6,7 +6,7 @@
 
 	#include <stdio.h>
 	#include <stdlib.h>	
-	//#include <unistd.h>
+	#include <unistd.h>
 
 	void MacUILib_init(void);
 	void MacUILib_init_sync(void);

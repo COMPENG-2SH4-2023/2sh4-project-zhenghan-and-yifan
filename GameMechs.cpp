@@ -33,7 +33,7 @@ GameMechs::~GameMechs()
     * This is a destructor
     */
 
-    delete[] input;
+    //delete[] input;
 }
 
 bool GameMechs::getExitFlagStatus()
