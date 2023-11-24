@@ -2,24 +2,26 @@
 #include "MacUILib.h"
 #include "objPos.h"
 #include "Player.h"
+#include "GameMechs.h"
+#include <cstdlib>  // For rand, srand
+#include <ctime>    // For time
 
 
 using namespace std;
 
 #define DELAY_CONST 100000
 
+
 bool exitFlag;
 
 GameMechs* myGM;
 Player* myPlayer;
 
-objPos myPos;
+struct objPos myPos;
+objPos* itemBin;
 
 
 //char space[myGM->getBoardSizeX()-1][myGM->getBoardSizeX()-1];
-
-
-
 
 void Initialize(void);
 void GetInput(void);
@@ -28,14 +30,12 @@ void DrawScreen(void);
 void LoopDelay(void);
 void CleanUp(void);
 
-
-
 int main(void)
 {
 
     Initialize();
 
-    while(myGM->getExitFlagStatus() == false)  
+    while(myGM->getExitFlagStatus() == false)
     {
         GetInput();
         RunLogic();
@@ -54,15 +54,16 @@ void Initialize(void)
     MacUILib_clearScreen();
     myGM = new GameMechs(10, 20);
     myPlayer = new Player(myGM);
+    itemBin = new objPos[5];
 
     //exitFlag = false;
-    
+
 }
 
 void GetInput(void)
 {
     myGM -> getInput();
-   
+
 }
 
 void RunLogic(void)
@@ -70,43 +71,55 @@ void RunLogic(void)
     myPlayer->updatePlayerDir();
 }
 
-void DrawScreen(void)
-{
+
+
+
+void DrawScreen() {
     MacUILib_clearScreen();
 
-    char space[myGM->getBoardSizeX()-1][myGM->getBoardSizeY()-1];   
+    // Constants for the board dimensions
+    const int boardSizeX = myGM->getBoardSizeX();
+    const int boardSizeY = myGM->getBoardSizeY();
 
-    
-    
-    objPos tempPos;
-    myPlayer->getPlayerPos(tempPos);  
-    
-    for(int i = 0; i<myGM->getBoardSizeX(); i++){
-        for(int j = 0; j < myGM->getBoardSizeY(); j++){
-            if(((i == myGM->getBoardSizeX()-1) || (i == 0)) || ((j == myGM->getBoardSizeY()-1) || (j == 0))){
+    // Create a 2D array to represent the screen space
+    char screen[boardSizeX][boardSizeY];
 
-                space[i][j] = '#';
+    // Get the player's position
+    struct objPos playerPosition;
+    myPlayer->getPlayerPos(playerPosition);
 
-            }
-
-            else{
-                space[i][j] = ' ';
+    // Build the screen layout
+    for (int x = 0; x < boardSizeX; x++) {
+        for (int y = 0; y < boardSizeY; y++) {
+            // Place borders with '#' and empty spaces with ' '
+            if (x == 0 || x == boardSizeX - 1 || y == 0 || y == boardSizeY - 1) {
+                screen[x][y] = '#';
+            } else {
+                screen[x][y] = ' ';
             }
         }
-
     }
 
-    space[tempPos.x][tempPos.y] = tempPos.symbol;
+    // Place the player's symbol on the screen
+    screen[playerPosition.x][playerPosition.y] = playerPosition.symbol;
+    myGM->collisionCheck(boardSizeX, boardSizeY, playerPosition, itemBin);
 
-    for (int i = 0; i < myGM->getBoardSizeX(); i++) {
-        for (int j = 0; j < myGM->getBoardSizeY(); j++) {
-            MacUILib_printf("%c", space[i][j]);
+
+    // Place item symbols on the screen
+    for (int i = 0; i < 5; i++) {
+        screen[itemBin[i].x][itemBin[i].y] = itemBin[i].symbol;
+    }
+
+    // Print the screen
+    for (int x = 0; x < boardSizeX; x++) {
+        for (int y = 0; y < boardSizeY; y++) {
+            MacUILib_printf("%c", screen[x][y]);
         }
         MacUILib_printf("\n");
     }
-    
 
 }
+
 
 void LoopDelay(void)
 {
@@ -116,7 +129,9 @@ void LoopDelay(void)
 
 void CleanUp(void)
 {
-    MacUILib_clearScreen();    
-  
+    MacUILib_clearScreen();
+
     MacUILib_uninit();
 }
+
+
