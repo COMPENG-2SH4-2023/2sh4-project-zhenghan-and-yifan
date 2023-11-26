@@ -42,12 +42,45 @@ public:
     int getBoardSizeX();
     int getBoardSizeY();
 
-    void collisionCheck(int boardSizeX, int boardSizeY, struct objPos playerPosition, struct objPos itemBin[]);
-    void randomlize(int xRange, int yRange, int *x, int *y, char *symbol);
-    int PositionValidation(const struct objPos list[],const struct objPos *playerPos, int count, int x, int y, char symbol);
-    void AddItemToList(struct objPos list[], int count, int x, int y, char symbol);
-    void populateItemBin(objPos *list, int listSize, struct objPos itemBin[]);
-    void GenerateItems(objPos *list, const int listSize, const objPos *playerPos, const int xRange, const int yRange, struct objPos *itemBin);
+    int incrementScore();
+    int getScore();
+
 };
+
+class Food{
+private:
+    objPos *FoodPos;
+    int listSize;
+    char foodSymbol;
+
+public:
+    Food();
+    ~Food();
+    void randomizeFoodPos(int &x, int &y);
+    bool PositionValidation(const struct objPos list[], const struct objPos *playerPos, int count, int x, int y);
+    void AddItemToList(struct objPos list[], int count, int x, int y);
+    void generateFood(const objPos& playerPos);
+    void getFoodPos(objPos (&returnPos)[5]);
+    bool isFoodEaten(const objPos& playerPos);
+};
+
+class FoodBucket{
+    //ArrayList Design
+private:
+    objPosArrayList* foodPositions; // Dynamic array for food positions
+    int listSize;
+    char foodSymbol;
+
+public:
+    FoodBucket();
+    ~FoodBucket();
+    void randomizeFoodPos(int &x, int &y);
+    bool positionValidation(objPosArrayList *list, objPosArrayList* playerPosList, int x, int y);
+    void addItemToList(int x, int y);
+    void generateFoods(objPosArrayList* playerPosList);
+    void getFoodPos(objPos (&returnPos)[5]);
+    bool isFoodEaten(objPosArrayList* playerPosList);
+};
+
 
 #endif

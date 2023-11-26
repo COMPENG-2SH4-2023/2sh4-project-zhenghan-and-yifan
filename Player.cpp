@@ -22,10 +22,21 @@ Player::Player(GameMechs* thisGMRef)
     mainGameMechsRef = thisGMRef;
     myDir = STOP;
 
+    //objPos playerPos;
+    objPos tempPos;
     // more actions to be included
-    playerPos.setObjPos(mainGameMechsRef->getBoardSizeX()/2,
+    tempPos.setObjPos(mainGameMechsRef->getBoardSizeX()/2,
                         mainGameMechsRef->getBoardSizeY()/2,
                         '*');
+    playerPosList = new objPosArrayList();
+    playerPosList->insertHead(tempPos);
+
+    // debug only
+    //playerPosList->insertHead(tempPos);
+    //playerPosList->insertHead(tempPos);
+    //playerPosList->insertHead(tempPos);
+    //playerPosList->insertHead(tempPos);
+
 }
 
 
@@ -34,14 +45,22 @@ Player::~Player()
     // delete any heap members here
     //no heap member yet...
     //leave it empty for now...
+    delete playerPosList;
 }
 
+
+objPosArrayList *Player::getPlayerPos()
+{
+    // return playerPos by pass by reference
+    return playerPosList;
+}
+
+/*
 void Player::getPlayerPos(objPos &returnPos)
 {
-
-    // return the reference to the playerPos arrray list
     returnPos.setObjPos(playerPos.x, playerPos.y, playerPos.symbol);
 }
+*/
 
 void Player::updatePlayerDir()
 {
@@ -87,7 +106,7 @@ void Player::updatePlayerDir()
     }
     movePlayer();
 }
-
+/*
 void Player::movePlayer()
 {
     // PPA3 Finite State Machine logic
@@ -139,6 +158,99 @@ void Player::movePlayer()
 
     }
 }
+*/
 
+void Player::movePlayer()
+{
+    // PPA3 Finite State Machine logic
+    //get the board size managed by GameMech
 
+    //check input is valid
+    //if valid, update the player position
+    //if not valid, do nothing
+    objPos currentHead; //Initialise the currentHead for holding the current position
+    playerPosList->getHeadElement(currentHead);
+    if (mainGameMechsRef->getInput() != 0)
+    {
+        if (mainGameMechsRef->getInput() == ESC_KEY)
+        {
+            mainGameMechsRef->setExitTrue();
+        }
+        switch (myDir) {
+            case UP:
+                currentHead.x--;
+                break;
+            case DOWN:
+                currentHead.x++;
+                break;
+            case LEFT:
+                currentHead.y--;
+                break;
+            case RIGHT:
+                currentHead.y++;
+                break;
+            default:
+                break;
+        }
+        //wrap around
+        if (currentHead.x > mainGameMechsRef->getBoardSizeX() - 2)
+        {
+            currentHead.x = 1;
+        }
+        else if (currentHead.x < 1)
+        {
+            currentHead.x = mainGameMechsRef->getBoardSizeX() - 2;
+        }
+        if (currentHead.y > mainGameMechsRef->getBoardSizeY() - 2)
+        {
+            currentHead.y = 1;
+        }
+        else if (currentHead.y < 1)
+        {
+            currentHead.y = mainGameMechsRef->getBoardSizeY() - 2;
+        }
+    }
+    playerPosList->insertHead(currentHead);
+    playerPosList->removeTail();
+}
 
+void Player::increasePlayerLength()
+{
+    objPos currentHead;
+    playerPosList->getHeadElement(currentHead);
+    objPos newHead;
+    switch (myDir) {
+        case UP:
+            newHead.setObjPos(currentHead.x - 1, currentHead.y, '*');
+            break;
+        case DOWN:
+            newHead.setObjPos(currentHead.x + 1, currentHead.y, '*');
+            break;
+        case LEFT:
+            newHead.setObjPos(currentHead.x, currentHead.y - 1, '*');
+            break;
+        case RIGHT:
+            newHead.setObjPos(currentHead.x, currentHead.y + 1, '*');
+            break;
+        default:
+            break;
+    }
+    playerPosList->insertHead(newHead);
+}
+
+bool Player::checkSelfCollision()
+{
+    objPos currentHead; //store the current head position
+    playerPosList->getHeadElement(currentHead);  //get the current head position
+    objPos temp; //store iteration position
+    for(int k = 1; k < playerPosList->getSize(); k++)
+    {
+        playerPosList->getElement(temp,k);
+        if(temp.x == currentHead.x && temp.y == currentHead.y)
+        {
+            mainGameMechsRef->setExitTrue();
+            return true;
+        }
+    }
+    return false;
+}

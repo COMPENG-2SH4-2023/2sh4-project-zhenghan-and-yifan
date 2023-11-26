@@ -102,82 +102,229 @@ void GameMechs::clearInput()
 
 }
 
-void GameMechs::GenerateItems(struct objPos list[], const int listSize, const struct objPos *playerPos, const int xRange, const int yRange, struct objPos *itemBin)
+int GameMechs::incrementScore()
 {
-    srand(time(NULL));
-    int x, y;
-    char symbol;
-    int valid = 0;
-    int count = 0;
+    /*
+    * This function increments the score
+    */
+    // use bool isFoodEaten() to check if food is eaten
+    score++;
+    return score;
+}
 
+int GameMechs::getScore()
+{
+    /*
+    * This function returns the score
+    */
+    return score;
+}
+
+Food::Food()
+{
+    /*
+    * This is a constructor
+    * We will initialize all the  data members here
+    */
+    srand(time(NULL));
+    // Arrange 5 food items on the board
+    FoodPos = new objPos[5];
+    listSize = 5;
+    foodSymbol = 'O';
+
+}
+
+
+Food::~Food()
+{
+    /*
+    * This is a destructor
+    */
+}
+
+
+void Food::randomizeFoodPos(int &x, int &y){
+    x = rand() % 10;  //following the instruction of PPA3
+    y = rand() % 20;
+}
+
+bool Food::PositionValidation(const struct objPos list[],const struct objPos *playerPos, int count, int x, int y){
+    for (int j = 0; j < count; j++)
+    // Check if the food position is the same as the previous food position
+    {
+        if ((list[j].x == x && list[j].y == y))
+        {
+            return false;
+        }
+    }
+    // Check if the food position is the same as the player position
+    if (playerPos->x == x && playerPos->y == y)
+    {
+        return false;
+    }
+    // Additional check for border items
+    if (x == 0 || x == 9 || y == 0 || y == 19)
+    {
+        return false;
+    }
+    if (x <= 0 || x >= 9 || y <= 1 || y >= 19)
+    {
+        return false;
+    }
+    return true;
+}
+
+void Food::generateFood(const objPos& playerPos)
+{
+    /*
+    * This function generates the food position
+    */
+    int x = 0, y = 0;
+    int count = 0;
+    bool valid;
     while (count < listSize)
     {
-        randomlize(xRange, yRange, &x, &y, &symbol);
-        valid = PositionValidation(list, playerPos, count, x, y, symbol);
+        randomizeFoodPos(x, y);
+        valid = PositionValidation(FoodPos, &playerPos, count, x, y);
         if (valid)
         {
-            AddItemToList(list, count, x, y, symbol);
+            AddItemToList(FoodPos, count, x, y);
             count++;
         }
     }
-    populateItemBin(list, listSize, itemBin);
+
 }
 
-void GameMechs::collisionCheck(int boardSizeX, int boardSizeY, struct objPos playerPosition, struct objPos itemBin[])
+void Food::AddItemToList(struct objPos list[], int count, int x, int y){
+    list[count].x = x;
+    list[count].y = y;
+    list[count].symbol = foodSymbol;
+}
+
+void Food::getFoodPos(objPos (&returnPos)[5])
 {
     /*
-     * This function checks if the player has collided with an item
-     * If a collision is detected, it calls GenerateItems to generate new items
-     */
-    static bool firstRun = true;
-    if (firstRun) {
-        GenerateItems(itemBin, 5, &playerPosition, boardSizeX, boardSizeY, itemBin);
-        firstRun = false;
-    }
-    else
+    * This function returns the food position
+    */
+    for (int i = 0; i < 5; i++)
     {
-        for (int i = 0; i < 5; i++)
+        returnPos[i].x = FoodPos[i].x;
+        returnPos[i].y = FoodPos[i].y;
+        returnPos[i].symbol = FoodPos[i].symbol;
+    }
+}
+
+bool Food::isFoodEaten(const objPos& playerPos) {
+    for (int i = 0; i < listSize; ++i) {
+        if (FoodPos[i].x == playerPos.x && FoodPos[i].y == playerPos.y) {
+            return true;  // Food is eaten
+        }
+    }
+    return false;  // No food eaten
+}
+
+FoodBucket::FoodBucket()
+{
+    /*
+    * This is a constructor
+    * We will initialize all the  data members here
+    */
+    srand(time(NULL));
+    foodPositions = new objPosArrayList[5]; // Assuming objPosArrayList has a constructor
+    listSize = 5;
+    foodSymbol = 'O';
+}
+
+FoodBucket::~FoodBucket()
+{
+    /*
+    * This is a destructor
+    */
+    delete[] foodPositions;
+}
+
+void FoodBucket::randomizeFoodPos(int &x, int &y){
+    /*
+     * This function generates a single food position
+     */
+    x = rand() % 10;  //following the instruction of PPA3
+    y = rand() % 20;
+}
+
+void FoodBucket::generateFoods(objPosArrayList* playerPosList){
+    int x = 0, y = 0;
+    int count = 0;
+    bool valid;
+    while (count < listSize)
+    {
+        randomizeFoodPos(x, y);
+        valid = positionValidation(foodPositions, playerPosList, x, y);
+        if (valid)
         {
-            if (playerPosition.x == itemBin[i].x && playerPosition.y == itemBin[i].y)
-            {
-                GenerateItems(itemBin, 5, &playerPosition, boardSizeX, boardSizeY, itemBin);
-                break;
-            }
+            addItemToList(x, y);
+            count++;
         }
     }
 }
-
-void GameMechs::randomlize(int xRange, int yRange, int *x, int *y, char *symbol){
-    *x = rand() % xRange;  //following the instruction of PPA3
-    *y = rand() % yRange;
-    *symbol = (rand() % (126 - 33 + 1)) + 33;
-}
-
-int GameMechs::PositionValidation(const struct objPos list[],const struct objPos *playerPos, int count, int x, int y, char symbol){
-    for (int j = 0; j < count; j++)
+bool FoodBucket::positionValidation(objPosArrayList *list, objPosArrayList* playerPosList, int x, int y)
+{
+    for (int j = 0; j < list->getSize(); j++)
     {
-        if ((list[j].x == x && list[j].y == y) || (list[j].symbol == symbol))
-            return 0;
+        objPos temp;
+        list->getElement(temp, j);
+        if ((temp.x == x && temp.y == y))
+        {
+            return false;
+        }
     }
-    if (playerPos->x == x && playerPos->y == y)
-        return 0;
-    // Additional check for border items
-    if (y == 0 || y == 19 || x == 0 || x == 9)
-        return 0;
-    return 1;
-}
 
-void GameMechs::AddItemToList(struct objPos list[], int count, int x, int y, char symbol){
-    list[count].x = x;
-    list[count].y = y;
-    list[count].symbol = symbol;
-}
-
-void GameMechs::populateItemBin(objPos *list, int listSize, struct objPos *itemBin) {
-    for (int i = 0; i < listSize; i++)
+    for (int j = 0; j < playerPosList->getSize(); j++)
     {
-        itemBin[i].x = list[i].x;
-        itemBin[i].y = list[i].y;
-        itemBin[i].symbol = list[i].symbol;
+        objPos temp;
+        playerPosList->getElement(temp, j);
+        if (temp.x == x && temp.y == y)
+        {
+            return false;
+        }
+    }
+
+    if (x == 0 || x == 9 || y == 0 || y == 19)
+    {
+        return false;
+    }
+
+    return true;
+}
+
+void FoodBucket::addItemToList(int x, int y){
+    objPos newPos;
+    newPos.x = x;
+    newPos.y = y;
+    newPos.symbol = foodSymbol;
+    foodPositions->insertTail(newPos);
+}
+
+void FoodBucket::getFoodPos(objPos (&returnPos)[5]){
+    for (int i = 0; i < listSize; i++) {
+        foodPositions->getElement(returnPos[i], i);
     }
 }
+
+bool FoodBucket::isFoodEaten(objPosArrayList* playerPosList) {
+    for (int i = 0; i < foodPositions->getSize(); ++i)
+    {
+        objPos temp;
+        foodPositions->getElement(temp, i);
+        for (int j = 0; j < playerPosList->getSize(); ++j)
+        {
+            objPos playerPos;
+            playerPosList->getElement(playerPos, j);
+            if (temp.x == playerPos.x && temp.y == playerPos.y)
+            {
+                return true;  // Food is eaten
+            }
+        }
+    }
+    return false;  // No food eaten
+}
+

@@ -19,13 +19,17 @@ public:
     Player(GameMechs* thisGMRef);
     ~Player();
 
-    void getPlayerPos(objPos &returnPos); // Upgrade this in iteration 3.
+    //void getPlayerPos(objPos &returnPos); // Upgrade this in iteration 3.
+    objPosArrayList *getPlayerPos();
 
     void updatePlayerDir();
     void movePlayer();
+    void increasePlayerLength();
+    bool checkSelfCollision();
 
 private:
-    objPos playerPos;   // Upgrade this in iteration 3.
+    //objPos playerPos;   // Upgrade this in iteration 3.
+    objPosArrayList *playerPosList; //Initialise the playerPosList
     enum Dir myDir;
 
     // Need a reference to the Main Game Mechanisms
