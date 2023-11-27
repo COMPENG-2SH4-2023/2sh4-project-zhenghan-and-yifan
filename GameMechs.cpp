@@ -230,9 +230,13 @@ FoodBucket::FoodBucket()
     * We will initialize all the  data members here
     */
     srand(time(NULL));
-    foodPositions = new objPosArrayList[5]; // Assuming objPosArrayList has a constructor
-    listSize = 5;
-    foodSymbol = 'O';
+    listSize = 5; // 5 food items
+    foodSymbol = 'O'; // Regular Food symbol
+    advancedFoodSymbol = 'X';  // Advanced Food symbol
+    objPos temp;  // Temporary objPos
+    temp.setObjPos(0, 0, '\0');  // Initialize temp
+    foodPositions = new objPosArrayList(); // Dynamic array for food positions
+    foodPositions->insertHead(temp); // Initialize foodPositions by inserting temp
 }
 
 FoodBucket::~FoodBucket()
@@ -254,75 +258,95 @@ void FoodBucket::randomizeFoodPos(int &x, int &y){
 void FoodBucket::generateFoods(objPosArrayList* playerPosList){
     int x = 0, y = 0;
     int count = 0;
-    bool valid;
+    bool valid, advancedValid;
     while (count < listSize)
     {
         randomizeFoodPos(x, y);
         valid = positionValidation(foodPositions, playerPosList, x, y);
-        if (valid)
+        advancedValid = AdvancedPositionValidation(playerPosList, x, y);
+        if (valid && advancedValid)
         {
             addItemToList(x, y);
+
             count++;
         }
     }
 }
+
 bool FoodBucket::positionValidation(objPosArrayList *list, objPosArrayList* playerPosList, int x, int y)
 {
     for (int j = 0; j < list->getSize(); j++)
+    // Check if the food position is the same as the previous food position
     {
-        objPos temp;
-        list->getElement(temp, j);
-        if ((temp.x == x && temp.y == y))
+        objPos tempFood;
+        list->getElement(tempFood, j);
+        if ((tempFood.x == x && tempFood.y == y))
         {
             return false;
         }
     }
-
+    // Check if the food position is the same as the player position
     for (int j = 0; j < playerPosList->getSize(); j++)
     {
-        objPos temp;
-        playerPosList->getElement(temp, j);
-        if (temp.x == x && temp.y == y)
+        objPos tempPos;
+        playerPosList->getElement(tempPos, j);
+        if (tempPos.x == x && tempPos.y == y)
         {
             return false;
         }
     }
-
+    // Additional check for border items
     if (x == 0 || x == 9 || y == 0 || y == 19)
     {
         return false;
     }
-
+    if (x <= 0 || x >= 9 || y <= 1 || y >= 19)
+    {
+        return false;
+    }
     return true;
 }
 
-void FoodBucket::addItemToList(int x, int y){
-    objPos newPos;
-    newPos.x = x;
-    newPos.y = y;
-    newPos.symbol = foodSymbol;
-    foodPositions->insertTail(newPos);
+bool FoodBucket::AdvancedPositionValidation(objPosArrayList* playerPosList, int x, int y)
+{
+    objPos snakeBody;;
+    for (int j = 0; j < playerPosList->getSize(); j++)
+    {
+        playerPosList->getElement(snakeBody, j);
+        if ((snakeBody.x == x && snakeBody.y == y))
+        {
+            return false;
+        }
+    }
+    return true;
 }
 
-void FoodBucket::getFoodPos(objPos (&returnPos)[5]){
-    for (int i = 0; i < listSize; i++) {
-        foodPositions->getElement(returnPos[i], i);
-    }
+
+void FoodBucket::addItemToList(int x, int y){
+    objPos newPos;
+    newPos.setObjPos(x, y, foodSymbol);
+    foodPositions->insertHead(newPos);
+}
+
+objPosArrayList *FoodBucket::getFoodPos(){
+    return foodPositions;
 }
 
 bool FoodBucket::isFoodEaten(objPosArrayList* playerPosList) {
+    if (playerPosList == nullptr || playerPosList->getSize() == 0)
+    {
+        return false;  // No player position available to check
+    }
+    objPos playerHeadPos;
+    playerPosList->getHeadElement(playerHeadPos);
     for (int i = 0; i < foodPositions->getSize(); ++i)
     {
         objPos temp;
         foodPositions->getElement(temp, i);
-        for (int j = 0; j < playerPosList->getSize(); ++j)
+        // Check if food is eaten by the Snake head only
+        if (temp.x == playerHeadPos.x && temp.y == playerHeadPos.y)
         {
-            objPos playerPos;
-            playerPosList->getElement(playerPos, j);
-            if (temp.x == playerPos.x && temp.y == playerPos.y)
-            {
-                return true;  // Food is eaten
-            }
+            return true;  // Food is eaten
         }
     }
     return false;  // No food eaten

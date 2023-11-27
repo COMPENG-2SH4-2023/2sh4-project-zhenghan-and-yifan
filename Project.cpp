@@ -9,7 +9,7 @@
 
 using namespace std;
 
-#define DELAY_CONST 100000
+#define DELAY_CONST 300000
 
 
 bool exitFlag;
@@ -20,7 +20,6 @@ Food *SnakeFood;
 FoodBucket *SnakeFoodBucket;
 
 struct objPos myPos;
-struct objPos *foodPos;
 int count = 0;
 int stageFlag = 0;
 
@@ -60,6 +59,7 @@ void Initialize(void)
     myGM = new GameMechs(10, 20);
     myPlayer = new Player(myGM);
     SnakeFood = new Food();
+    SnakeFoodBucket = new FoodBucket();
     stageFlag = 0;
     //exitFlag = false;
 
@@ -124,11 +124,14 @@ void DrawScreen() {
         }
     }
 
+
+    static bool isFoodEaten = true;
+    /////////////////////////////Version using Food Class Start /////////////////////////////////////
+
     objPos foodPosition[5];
     objPos CurrentHead;
     playerBody->getElement(CurrentHead,0);
 
-    static bool isFoodEaten = true;
     if (isFoodEaten) {
         SnakeFood->generateFood(CurrentHead);
         SnakeFood->getFoodPos(foodPosition);
@@ -160,8 +163,53 @@ void DrawScreen() {
                 screen[foodPosition[i].x][foodPosition[i].y] = foodPosition[i].symbol;
             }
         }
+    }
+
+    /////////////////////////////Version using Food Class End/////////////////////////////////////
+    /////////////////////////////Version using FoodBucket Class Start /////////////////////////////////////
+    /*
+     * objPos foodPosition[5];
+    objPosArrayList *foodPositionList;
+    if (isFoodEaten) {
+        SnakeFoodBucket->generateFoods(playerBody);
+        foodPositionList = SnakeFoodBucket->getFoodPos();
+        objPos tempFoodPos;
+        for (int i = 0; i < 5; i++)
+        {
+            foodPositionList->getElement(tempFoodPos,i);
+            screen[tempFoodPos.x][tempFoodPos.y] = tempFoodPos.symbol;
+        }
+        isFoodEaten = false;
+    }
+    else
+    {
+        //SnakeFoodBucket->generateFoods(playerBody);
+        foodPositionList = SnakeFoodBucket->getFoodPos();
+        // Check if food is eaten
+        if (SnakeFoodBucket->isFoodEaten(playerBody)) {
+            //if food is eaten, generate new food
+            SnakeFoodBucket->generateFoods(playerBody);
+            foodPositionList = SnakeFoodBucket->getFoodPos(); // Update food positions array
+            myGM->incrementScore();
+            myPlayer->increasePlayerLength();
+            objPos tempFoodPos;
+            for (int i = 0; i < 5; i++)
+            {
+                foodPositionList->getElement(tempFoodPos,i);
+                screen[tempFoodPos.x][tempFoodPos.y] = tempFoodPos.symbol;
+            }
+        }
+
+            objPos tempFoodPos;
+            for (int i = 0; i < 5; i++)
+            {
+                foodPositionList->getElement(tempFoodPos,i);
+                screen[tempFoodPos.x][tempFoodPos.y] = tempFoodPos.symbol;
+            }
 
     }
+    /////////////////////////////Version using FoodBucket Class End/////////////////////////////////////
+     */
     // Print the screen
     for (int x = 0; x < boardSizeX; x++)
     {
@@ -173,12 +221,16 @@ void DrawScreen() {
     }
     //print debug info
     MacUILib_printf("Score: %d\n", myGM->getScore());
+    objPos playerHeadPos;
+    playerBody->getHeadElement(playerHeadPos);
+    MacUILib_printf("Player Head: (%d, %d)\n", playerHeadPos.x, playerHeadPos.y);
     //print out food position
-    MacUILib_printf("Food Position 1: %d, %d\n", foodPosition[0].x, foodPosition[0].y);
-    MacUILib_printf("Food Position 2: %d, %d\n", foodPosition[1].x, foodPosition[1].y);
-    MacUILib_printf("Food Position 3: %d, %d\n", foodPosition[2].x, foodPosition[2].y);
-    MacUILib_printf("Food Position 4: %d, %d\n", foodPosition[3].x, foodPosition[3].y);
-    MacUILib_printf("Food Position 5: %d, %d\n", foodPosition[4].x, foodPosition[4].y);
+    objPos tempFoodPos;
+    for (int i = 0; i < 5; i++)
+    {
+        //foodPositionList->getElement(tempFoodPos,i);
+        MacUILib_printf("Food %d: (%d, %d)\n", i, tempFoodPos.x, tempFoodPos.y);
+    }
 }
 
 

@@ -70,15 +70,17 @@ private:
     objPosArrayList* foodPositions; // Dynamic array for food positions
     int listSize;
     char foodSymbol;
+    char advancedFoodSymbol;
 
 public:
     FoodBucket();
     ~FoodBucket();
     void randomizeFoodPos(int &x, int &y);
     bool positionValidation(objPosArrayList *list, objPosArrayList* playerPosList, int x, int y);
+    bool AdvancedPositionValidation(objPosArrayList* playerPosList, int x, int y);
     void addItemToList(int x, int y);
     void generateFoods(objPosArrayList* playerPosList);
-    void getFoodPos(objPos (&returnPos)[5]);
+    objPosArrayList *getFoodPos();
     bool isFoodEaten(objPosArrayList* playerPosList);
 };
 

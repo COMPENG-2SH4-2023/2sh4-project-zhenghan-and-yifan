@@ -55,12 +55,6 @@ objPosArrayList *Player::getPlayerPos()
     return playerPosList;
 }
 
-/*
-void Player::getPlayerPos(objPos &returnPos)
-{
-    returnPos.setObjPos(playerPos.x, playerPos.y, playerPos.symbol);
-}
-*/
 
 void Player::updatePlayerDir()
 {
@@ -106,59 +100,6 @@ void Player::updatePlayerDir()
     }
     movePlayer();
 }
-/*
-void Player::movePlayer()
-{
-    // PPA3 Finite State Machine logic
-    //get the board size managed by GameMech
-
-    //check input is valid
-    //if valid, update the player position
-    //if not valid, do nothing
-
-    if (mainGameMechsRef->getInput() != 0)
-    {
-        if (mainGameMechsRef->getInput() == ESC_KEY)
-        {
-            mainGameMechsRef->setExitTrue();
-        }
-        switch (myDir) {
-            case UP:
-                playerPos.x--;
-                break;
-            case DOWN:
-                playerPos.x++;
-                break;
-            case LEFT:
-                playerPos.y--;
-                break;
-            case RIGHT:
-                playerPos.y++;
-                break;
-            default:
-                break;
-        }
-        //wrap around
-        if (playerPos.x > mainGameMechsRef->getBoardSizeX() - 2)
-        {
-            playerPos.x = 1;
-        }
-        else if (playerPos.x < 1)
-        {
-            playerPos.x = mainGameMechsRef->getBoardSizeX() - 2;
-        }
-        if (playerPos.y > mainGameMechsRef->getBoardSizeY() - 2)
-        {
-            playerPos.y = 1;
-        }
-        else if (playerPos.y < 1)
-        {
-            playerPos.y = mainGameMechsRef->getBoardSizeY() - 2;
-        }
-
-    }
-}
-*/
 
 void Player::movePlayer()
 {
@@ -197,7 +138,7 @@ void Player::movePlayer()
         {
             currentHead.x = 1;
         }
-        else if (currentHead.x < 1)
+        if (currentHead.x < 1)
         {
             currentHead.x = mainGameMechsRef->getBoardSizeX() - 2;
         }
@@ -205,7 +146,7 @@ void Player::movePlayer()
         {
             currentHead.y = 1;
         }
-        else if (currentHead.y < 1)
+        if (currentHead.y < 1)
         {
             currentHead.y = mainGameMechsRef->getBoardSizeY() - 2;
         }
@@ -240,16 +181,23 @@ void Player::increasePlayerLength()
 
 bool Player::checkSelfCollision()
 {
+    /*
+     * This function checks if the player snake has collided with itself
+     * if yes, return true
+     * if no, return false
+     */
     objPos currentHead; //store the current head position
     playerPosList->getHeadElement(currentHead);  //get the current head position
     objPos temp; //store iteration position
     for(int k = 1; k < playerPosList->getSize(); k++)
     {
+        // loop through the playerPosList to check if the currentHead
+        // has collided with any other part of the snake
         playerPosList->getElement(temp,k);
-        if(temp.x == currentHead.x && temp.y == currentHead.y)
+        if(temp.x == currentHead.x && temp.y == currentHead.y)  //if collided
         {
-            mainGameMechsRef->setExitTrue();
-            return true;
+            mainGameMechsRef->setExitTrue(); //set exit flag to true
+            return true; //return true
         }
     }
     return false;
