@@ -82,6 +82,7 @@ public:
     void generateFoods(objPosArrayList* playerPosList);
     objPosArrayList *getFoodPos();
     bool isFoodEaten(objPosArrayList* playerPosList);
+    bool isFoodEatenXY(int x, int y);
 };
 
 

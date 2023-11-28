@@ -127,7 +127,7 @@ void DrawScreen() {
 
     static bool isFoodEaten = true;
     /////////////////////////////Version using Food Class Start /////////////////////////////////////
-
+    /*
     objPos foodPosition[5];
     objPos CurrentHead;
     playerBody->getElement(CurrentHead,0);
@@ -164,11 +164,10 @@ void DrawScreen() {
             }
         }
     }
-
+    */
     /////////////////////////////Version using Food Class End/////////////////////////////////////
     /////////////////////////////Version using FoodBucket Class Start /////////////////////////////////////
-    /*
-     * objPos foodPosition[5];
+    bool foodeat = false;
     objPosArrayList *foodPositionList;
     if (isFoodEaten) {
         SnakeFoodBucket->generateFoods(playerBody);
@@ -184,9 +183,15 @@ void DrawScreen() {
     else
     {
         //SnakeFoodBucket->generateFoods(playerBody);
+        objPos tempuserPos;
+        playerBody->getHeadElement(tempuserPos);
+        int userX = tempuserPos.x;
+        int userY = tempuserPos.y;
         foodPositionList = SnakeFoodBucket->getFoodPos();
         // Check if food is eaten
-        if (SnakeFoodBucket->isFoodEaten(playerBody)) {
+        if (SnakeFoodBucket->isFoodEatenXY(userX, userY))
+        {
+
             //if food is eaten, generate new food
             SnakeFoodBucket->generateFoods(playerBody);
             foodPositionList = SnakeFoodBucket->getFoodPos(); // Update food positions array
@@ -200,16 +205,15 @@ void DrawScreen() {
             }
         }
 
-            objPos tempFoodPos;
-            for (int i = 0; i < 5; i++)
-            {
-                foodPositionList->getElement(tempFoodPos,i);
-                screen[tempFoodPos.x][tempFoodPos.y] = tempFoodPos.symbol;
-            }
-
+        objPos tempFoodPos;
+        for (int i = 0; i < 5; i++)
+        {
+            foodPositionList->getElement(tempFoodPos,i);
+            screen[tempFoodPos.x][tempFoodPos.y] = tempFoodPos.symbol;
+        }
     }
     /////////////////////////////Version using FoodBucket Class End/////////////////////////////////////
-     */
+
     // Print the screen
     for (int x = 0; x < boardSizeX; x++)
     {
@@ -228,8 +232,9 @@ void DrawScreen() {
     objPos tempFoodPos;
     for (int i = 0; i < 5; i++)
     {
-        //foodPositionList->getElement(tempFoodPos,i);
+        foodPositionList->getElement(tempFoodPos,i);
         MacUILib_printf("Food %d: (%d, %d)\n", i, tempFoodPos.x, tempFoodPos.y);
+        MacUILib_printf("Eaten: %d\n", foodeat);
     }
 }
 

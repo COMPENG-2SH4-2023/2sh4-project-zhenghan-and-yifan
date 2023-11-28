@@ -309,6 +309,11 @@ bool FoodBucket::positionValidation(objPosArrayList *list, objPosArrayList* play
 
 bool FoodBucket::AdvancedPositionValidation(objPosArrayList* playerPosList, int x, int y)
 {
+    /*
+     * This function checks if the food position is the same as the player body
+     * if yes, return false
+     * if no, return true
+     */
     objPos snakeBody;;
     for (int j = 0; j < playerPosList->getSize(); j++)
     {
@@ -352,3 +357,16 @@ bool FoodBucket::isFoodEaten(objPosArrayList* playerPosList) {
     return false;  // No food eaten
 }
 
+bool FoodBucket::isFoodEatenXY(int x, int y) {
+    for (int i = 0; i < foodPositions->getSize(); ++i)
+    {
+        objPos temp;
+        foodPositions->getElement(temp, i);
+        // Check if food is eaten by the Snake head only
+        if (temp.x == x && temp.y == y)
+        {
+            return true;  // Food is eaten
+        }
+    }
+    return false;  // No food eaten
+}
