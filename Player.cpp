@@ -55,6 +55,12 @@ objPosArrayList *Player::getPlayerPos()
     return playerPosList;
 }
 
+/*
+void Player::getPlayerPos(objPos &returnPos)
+{
+    returnPos.setObjPos(playerPos.x, playerPos.y, playerPos.symbol);
+}
+*/
 
 void Player::updatePlayerDir()
 {
@@ -101,6 +107,8 @@ void Player::updatePlayerDir()
     movePlayer();
 }
 
+
+
 void Player::movePlayer()
 {
     // PPA3 Finite State Machine logic
@@ -138,7 +146,7 @@ void Player::movePlayer()
         {
             currentHead.x = 1;
         }
-        if (currentHead.x < 1)
+        else if (currentHead.x < 1)
         {
             currentHead.x = mainGameMechsRef->getBoardSizeX() - 2;
         }
@@ -146,7 +154,7 @@ void Player::movePlayer()
         {
             currentHead.y = 1;
         }
-        if (currentHead.y < 1)
+        else if (currentHead.y < 1)
         {
             currentHead.y = mainGameMechsRef->getBoardSizeY() - 2;
         }
@@ -179,26 +187,27 @@ void Player::increasePlayerLength()
     playerPosList->insertHead(newHead);
 }
 
-bool Player::checkSelfCollision()
-{
-    /*
-     * This function checks if the player snake has collided with itself
-     * if yes, return true
-     * if no, return false
-     */
-    objPos currentHead; //store the current head position
-    playerPosList->getHeadElement(currentHead);  //get the current head position
-    objPos temp; //store iteration position
-    for(int k = 1; k < playerPosList->getSize(); k++)
-    {
-        // loop through the playerPosList to check if the currentHead
-        // has collided with any other part of the snake
-        playerPosList->getElement(temp,k);
-        if(temp.x == currentHead.x && temp.y == currentHead.y)  //if collided
-        {
-            mainGameMechsRef->setExitTrue(); //set exit flag to true
-            return true; //return true
+
+
+void Player::playerCollision(){
+    objPos temp;
+    objPos tempHead;
+    playerPosList->getHeadElement(tempHead);
+    int counter;
+
+    if(playerPosList->getSize()>2){
+
+        for(counter = 1; counter<playerPosList->getSize();counter++){
+
+            playerPosList->getElement(temp,counter);
+            
+            if(temp.x == tempHead.x && temp.y == tempHead.y){
+                mainGameMechsRef->setExitTrue();
+                break;
+            }
+
         }
+
     }
-    return false;
+
 }

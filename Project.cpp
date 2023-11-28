@@ -56,7 +56,7 @@ void Initialize(void)
 {
     MacUILib_init();
     MacUILib_clearScreen();
-    myGM = new GameMechs(10, 20);
+    myGM = new GameMechs(15, 30);
     myPlayer = new Player(myGM);
     SnakeFood = new Food();
     SnakeFoodBucket = new FoodBucket();
@@ -74,7 +74,7 @@ void GetInput(void)
 void RunLogic(void)
 {
     myPlayer->updatePlayerDir();
-    myPlayer->checkSelfCollision();
+    myPlayer -> playerCollision();
 }
 
 void DrawScreen() {

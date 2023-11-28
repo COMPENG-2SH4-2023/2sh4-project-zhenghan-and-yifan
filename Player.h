@@ -25,7 +25,7 @@ public:
     void updatePlayerDir();
     void movePlayer();
     void increasePlayerLength();
-    bool checkSelfCollision();
+    void playerCollision();
 
 private:
     //objPos playerPos;   // Upgrade this in iteration 3.

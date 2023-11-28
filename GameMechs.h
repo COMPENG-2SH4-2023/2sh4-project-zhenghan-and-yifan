@@ -22,7 +22,7 @@ private:
     char input;
     bool exitFlag;
     bool looseFlag;
-    int score;
+    int score = 0;
 
     int boardSizeX;
     int boardSizeY;
