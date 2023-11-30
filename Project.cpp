@@ -236,6 +236,8 @@ void DrawScreen() {
         MacUILib_printf("Food %d: (%d, %d)\n", i, tempFoodPos.x, tempFoodPos.y);
         MacUILib_printf("Eaten: %d\n", foodeat);
     }
+    //Print out the food positin length
+    MacUILib_printf("Food Position List Length: %d\n", foodPositionList->getSize());
 }
 
 
