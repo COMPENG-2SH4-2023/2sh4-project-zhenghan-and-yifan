@@ -4,7 +4,7 @@
 #include "Player.h"
 #include "GameMechs.h"
 #include "FoodBucket.h"
-//#include "SnakeTrap.h"
+#include "SnakeTrap.h"
 #include <cstdlib>  // For rand, srand
 #include <ctime>    // For time
 
@@ -20,6 +20,7 @@ GameMechs* myGM;
 Player* myPlayer;
 //Food *SnakeFood;
 FoodBucket *SnakeFoodBucket;
+SnakeTrap *traps;
 //SnakeTrap *TrapsList;
 
 struct objPos myPos;
@@ -64,6 +65,7 @@ void Initialize(void)
     //SnakeFood = new Food();
     SnakeFoodBucket = new FoodBucket();
     stageFlag = 0;
+    traps = new SnakeTrap();
     //exitFlag = false;
 
 }
@@ -127,7 +129,6 @@ void DrawScreen() {
         }
     }
 
-
     static bool isFoodEaten = true;
     /////////////////////////////Version using Food Class Start /////////////////////////////////////
     /*
@@ -173,57 +174,70 @@ void DrawScreen() {
     bool foodeat = false;
     objPosArrayList *foodPositionList;
     objPosArrayList *trapPositionList;
-    if (isFoodEaten) {
+    if (isFoodEaten)
+    {
         SnakeFoodBucket->generateFoods(playerBody);
         foodPositionList = SnakeFoodBucket->getFoodPos();
+        traps->generateTraps(foodPositionList,playerBody);
+        trapPositionList = traps->getTrapPos();
         objPos tempFoodPos;
+        objPos tempTrapPos;
         for (int i = 0; i < 5; i++)
         {
             foodPositionList->getElement(tempFoodPos,i);
+            trapPositionList->getElement(tempTrapPos,i);
             screen[tempFoodPos.x][tempFoodPos.y] = tempFoodPos.symbol;
+            screen[tempTrapPos.x][tempTrapPos.y] = tempTrapPos.symbol;
         }
-        //test for traps
-        //TrapsList->generateTraps(foodPositionList,playerBody);
-        //trapPositionList = TrapsList->getTrapPos();
-        //objPos tempTrapPos;
-        //for (int i = 0; i < 8; i++)
-        //{
-            //trapPositionList->getElement(tempTrapPos,i);
-            //screen[tempTrapPos.x][tempTrapPos.y] = tempTrapPos.symbol;
-        //}
-        
         isFoodEaten = false;
     }
     else
     {
-        //SnakeFoodBucket->generateFoods(playerBody);
         objPos tempuserPos;
         playerBody->getHeadElement(tempuserPos);
         int userX = tempuserPos.x;
         int userY = tempuserPos.y;
         foodPositionList = SnakeFoodBucket->getFoodPos();
+        trapPositionList = traps->getTrapPos();
         // Check if food is eaten
         if (SnakeFoodBucket->isFoodEatenXY(userX, userY))
         {
-
             //if food is eaten, generate new food
             SnakeFoodBucket->generateFoods(playerBody);
             foodPositionList = SnakeFoodBucket->getFoodPos(); // Update food positions array
+            ///////////////////////////// Traps Start //////////////////////////////////
+            traps->generateTraps(foodPositionList,playerBody);
+            trapPositionList = traps->getTrapPos();
+            ///////////////////////////// Traps End ///////////////////////////////////
             myGM->incrementScore();
             myPlayer->increasePlayerLength();
             objPos tempFoodPos;
+            objPos tempTrapPos;
             for (int i = 0; i < 5; i++)
             {
                 foodPositionList->getElement(tempFoodPos,i);
+                trapPositionList->getElement(tempTrapPos,i);
                 screen[tempFoodPos.x][tempFoodPos.y] = tempFoodPos.symbol;
+                screen[tempTrapPos.x][tempTrapPos.y] = tempTrapPos.symbol;
+
             }
         }
+        // Check if trap is triggered
+        if (traps->isTrapTriggeredXY(userX, userY))
+        {
+            //set the exit flag to true
+            myGM->setExitTrue();
+        }
+        //
 
         objPos tempFoodPos;
+        objPos tempTrapPos;
         for (int i = 0; i < 5; i++)
         {
             foodPositionList->getElement(tempFoodPos,i);
+            trapPositionList->getElement(tempTrapPos,i);
             screen[tempFoodPos.x][tempFoodPos.y] = tempFoodPos.symbol;
+            screen[tempTrapPos.x][tempTrapPos.y] = tempTrapPos.symbol;
         }
     }
     /////////////////////////////Version using FoodBucket Class End/////////////////////////////////////

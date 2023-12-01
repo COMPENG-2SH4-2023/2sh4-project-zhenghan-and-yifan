@@ -145,8 +145,7 @@ bool SnakeTrap::isTrapTriggered(objPosArrayList* playerPosList) {
         // Check if food is eaten by the Snake head only
         if (temp.x == playerHeadPos.x && temp.y == playerHeadPos.y)
         {
-
-            mainGameMechsRef->setExitTrue();
+            //mainGameMechsRef->setExitTrue();
             return true;  // Food is eaten
         }
     }
