@@ -47,43 +47,6 @@ public:
 
 };
 
-class Food{
-private:
-    objPos *FoodPos;
-    int listSize;
-    char foodSymbol;
-
-public:
-    Food();
-    ~Food();
-    void randomizeFoodPos(int &x, int &y);
-    bool PositionValidation(const struct objPos list[], const struct objPos *playerPos, int count, int x, int y);
-    void AddItemToList(struct objPos list[], int count, int x, int y);
-    void generateFood(const objPos& playerPos);
-    void getFoodPos(objPos (&returnPos)[5]);
-    bool isFoodEaten(const objPos& playerPos);
-};
-
-class FoodBucket{
-    //ArrayList Design
-private:
-    objPosArrayList* foodPositions; // Dynamic array for food positions
-    int listSize;
-    char foodSymbol;
-    char advancedFoodSymbol;
-
-public:
-    FoodBucket();
-    ~FoodBucket();
-    void randomizeFoodPos(int &x, int &y);
-    bool positionValidation(objPosArrayList *list, objPosArrayList* playerPosList, int x, int y);
-    bool AdvancedPositionValidation(objPosArrayList* playerPosList, int x, int y);
-    void addItemToList(int x, int y);
-    void generateFoods(objPosArrayList* playerPosList);
-    objPosArrayList *getFoodPos();
-    bool isFoodEaten(objPosArrayList* playerPosList);
-    bool isFoodEatenXY(int x, int y);
-};
 
 
 #endif

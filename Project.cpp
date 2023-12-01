@@ -3,6 +3,8 @@
 #include "objPos.h"
 #include "Player.h"
 #include "GameMechs.h"
+#include "FoodBucket.h"
+//#include "SnakeTrap.h"
 #include <cstdlib>  // For rand, srand
 #include <ctime>    // For time
 
@@ -16,8 +18,9 @@ bool exitFlag;
 
 GameMechs* myGM;
 Player* myPlayer;
-Food *SnakeFood;
+//Food *SnakeFood;
 FoodBucket *SnakeFoodBucket;
+//SnakeTrap *TrapsList;
 
 struct objPos myPos;
 int count = 0;
@@ -58,7 +61,7 @@ void Initialize(void)
     MacUILib_clearScreen();
     myGM = new GameMechs(15, 30);
     myPlayer = new Player(myGM);
-    SnakeFood = new Food();
+    //SnakeFood = new Food();
     SnakeFoodBucket = new FoodBucket();
     stageFlag = 0;
     //exitFlag = false;
@@ -169,6 +172,7 @@ void DrawScreen() {
     /////////////////////////////Version using FoodBucket Class Start /////////////////////////////////////
     bool foodeat = false;
     objPosArrayList *foodPositionList;
+    objPosArrayList *trapPositionList;
     if (isFoodEaten) {
         SnakeFoodBucket->generateFoods(playerBody);
         foodPositionList = SnakeFoodBucket->getFoodPos();
@@ -178,6 +182,16 @@ void DrawScreen() {
             foodPositionList->getElement(tempFoodPos,i);
             screen[tempFoodPos.x][tempFoodPos.y] = tempFoodPos.symbol;
         }
+        //test for traps
+        //TrapsList->generateTraps(foodPositionList,playerBody);
+        //trapPositionList = TrapsList->getTrapPos();
+        //objPos tempTrapPos;
+        //for (int i = 0; i < 8; i++)
+        //{
+            //trapPositionList->getElement(tempTrapPos,i);
+            //screen[tempTrapPos.x][tempTrapPos.y] = tempTrapPos.symbol;
+        //}
+        
         isFoodEaten = false;
     }
     else
@@ -214,6 +228,7 @@ void DrawScreen() {
     }
     /////////////////////////////Version using FoodBucket Class End/////////////////////////////////////
 
+    
     // Print the screen
     for (int x = 0; x < boardSizeX; x++)
     {

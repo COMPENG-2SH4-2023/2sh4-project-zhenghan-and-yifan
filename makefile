@@ -1,6 +1,6 @@
 CC=g++
 CFLAGS=-I. -g
-OBJ = GameMechs.o objPos.o objPosArrayList.o MacUILib.o Player.o Project.o 
+OBJ = GameMechs.o objPos.o objPosArrayList.o MacUILib.o Player.o Project.o FoodBucket.o SnakeTrap.o
 DEPS = *.h
 #POSTLINKER = -lncurses   ## uncomment this if on Linux
 EXEC = Project
