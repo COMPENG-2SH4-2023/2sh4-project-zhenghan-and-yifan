@@ -11,7 +11,6 @@ SnakeTrap::SnakeTrap()
     */
     srand(time(NULL));
     trapListSize = 8;
-    // Regular Food symbol
     trapSymbol = 'X';  // Advanced Food symbol
     objPos temp;  // Temporary objPos
     temp.setObjPos(0, 0, '\0');  // Initialize temp

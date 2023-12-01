@@ -10,8 +10,12 @@ FoodBucket::FoodBucket()
     */
     srand(time(NULL));
     listSize = 5;
+    PossFoodCount = 1;
+    NegFoodCount = 2;
+    totalFoodCount = listSize + PossFoodCount + NegFoodCount;
     foodSymbol = 'O'; // Regular Food symbol
-    advancedFoodSymbol = 'X';  // Advanced Food symbol
+    PositiveFoodSymbol = 'P';  // Advanced Food symbol
+    NegativeFoodSymbol = 'N';  // Advanced Food symbol
     objPos temp;  // Temporary objPos
     temp.setObjPos(0, 0, '\0');  // Initialize temp
     foodPositions = new objPosArrayList(); // Dynamic array for food positions
@@ -53,8 +57,30 @@ void FoodBucket::generateFoods(objPosArrayList* playerPosList){
         advancedValid = AdvancedPositionValidation(playerPosList, x, y);
         if (valid && advancedValid)
         {
-            addItemToList(x, y);
+            addItemToList(x, y, foodSymbol);
 
+            count++;
+        }
+    }
+    while (count < PossFoodCount + listSize)
+    {
+        randomizeFoodPos(x, y);
+        valid = positionValidation(foodPositions, playerPosList, x, y);
+        advancedValid = AdvancedPositionValidation(playerPosList, x, y);
+        if (valid && advancedValid)
+        {
+            addItemToList(x, y, PositiveFoodSymbol);
+            count++;
+        }
+    }
+    while (count < totalFoodCount)
+    {
+        randomizeFoodPos(x, y);
+        valid = positionValidation(foodPositions, playerPosList, x, y);
+        advancedValid = AdvancedPositionValidation(playerPosList, x, y);
+        if (valid && advancedValid)
+        {
+            addItemToList(x, y, NegativeFoodSymbol);
             count++;
         }
     }
@@ -115,9 +141,9 @@ bool FoodBucket::AdvancedPositionValidation(objPosArrayList* playerPosList, int 
 }
 
 
-void FoodBucket::addItemToList(int x, int y){
+void FoodBucket::addItemToList(int x, int y, char symbol){
     objPos newPos;
-    newPos.setObjPos(x, y, foodSymbol);
+    newPos.setObjPos(x, y, symbol);
 
     if(foodPositions->getSize() >= listSize){
         foodPositions->removeTail();

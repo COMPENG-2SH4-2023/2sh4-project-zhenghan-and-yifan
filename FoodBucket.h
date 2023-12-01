@@ -17,8 +17,12 @@ class FoodBucket{
 private:
     objPosArrayList* foodPositions; // Dynamic array for food positions
     int listSize;
+    int PossFoodCount;
+    int NegFoodCount;
+    int totalFoodCount;
     char foodSymbol;
-    char advancedFoodSymbol;
+    char PositiveFoodSymbol;
+    char NegativeFoodSymbol;
 
 public:
     FoodBucket();
@@ -26,7 +30,7 @@ public:
     void randomizeFoodPos(int &x, int &y);
     bool positionValidation(objPosArrayList *list, objPosArrayList* playerPosList, int x, int y);
     bool AdvancedPositionValidation(objPosArrayList* playerPosList, int x, int y);
-    void addItemToList(int x, int y);
+    void addItemToList(int x, int y, char symbol);
     void generateFoods(objPosArrayList* playerPosList);
     objPosArrayList *getFoodPos();
     bool isFoodEaten(objPosArrayList* playerPosList);
