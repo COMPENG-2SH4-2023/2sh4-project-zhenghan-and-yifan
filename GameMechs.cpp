@@ -259,6 +259,14 @@ void FoodBucket::generateFoods(objPosArrayList* playerPosList){
     int x = 0, y = 0;
     int count = 0;
     bool valid, advancedValid;
+    //for(int i = 0; i<listSize;i++){
+         //if(foodPositions->getSize() == 0)
+    //{
+        
+        //break;
+    //}
+        //foodPositions->removeTail();
+    //}
     while (count < listSize)
     {
         randomizeFoodPos(x, y);
@@ -266,6 +274,9 @@ void FoodBucket::generateFoods(objPosArrayList* playerPosList){
         advancedValid = AdvancedPositionValidation(playerPosList, x, y);
         if (valid && advancedValid)
         {
+
+           
+            
             addItemToList(x, y);
 
             count++;
@@ -330,6 +341,11 @@ bool FoodBucket::AdvancedPositionValidation(objPosArrayList* playerPosList, int 
 void FoodBucket::addItemToList(int x, int y){
     objPos newPos;
     newPos.setObjPos(x, y, foodSymbol);
+
+    if(foodPositions->getSize() >= 5){
+        foodPositions->removeTail();
+    }
+    
     foodPositions->insertHead(newPos);
 }
 
