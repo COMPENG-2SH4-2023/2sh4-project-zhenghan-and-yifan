@@ -10,7 +10,7 @@ SnakeTrap::SnakeTrap()
     * We will initialize all the  data members here
     */
     srand(time(NULL));
-    trapListSize = 8;
+    trapListSize = 5;
     trapSymbol = 'X';  // Advanced Food symbol
     objPos temp;  // Temporary objPos
     temp.setObjPos(0, 0, '\0');  // Initialize temp

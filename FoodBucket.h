@@ -6,6 +6,11 @@
 
 #include "objPos.h"
 #include "objPosArrayList.h"
+#include "GameMechs.h"
+
+#include "objPos.h"
+#include "Player.h"
+
 
 using namespace std;
 
@@ -33,7 +38,7 @@ public:
     void addItemToList(int x, int y, char symbol);
     void generateFoods(objPosArrayList* playerPosList);
     objPosArrayList *getFoodPos();
-    bool isFoodEaten(objPosArrayList* playerPosList);
+    char isFoodEaten(objPosArrayList* playerPosList);
     bool isFoodEatenXY(int x, int y);
 };
 

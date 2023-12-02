@@ -108,6 +108,8 @@ int GameMechs::incrementScore()
     * This function increments the score
     */
     // use bool isFoodEaten() to check if food is eaten
+    //capture collided symbol, compare ASCII Code
+
     score++;
     return score;
 }

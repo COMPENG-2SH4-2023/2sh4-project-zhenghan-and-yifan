@@ -156,36 +156,56 @@ objPosArrayList *FoodBucket::getFoodPos(){
     return foodPositions;
 }
 
-bool FoodBucket::isFoodEaten(objPosArrayList* playerPosList) {
+char FoodBucket::isFoodEaten(objPosArrayList* playerPosList) {
+     //if(collide == 'N') => score+=5
+    //else if(collide == 'P') => score += 10
+    //GameMechs *tempGM;
+    //Player* tempPlayer;
+    objPos playerHeadPos;
+    objPos temp;
     if (playerPosList == nullptr || playerPosList->getSize() == 0)
     {
-        return false;  // No player position available to check
+        return 0;  // No player position available to check
     }
-    objPos playerHeadPos;
+    
     playerPosList->getHeadElement(playerHeadPos);
     for (int i = 0; i < foodPositions->getSize(); ++i)
     {
-        objPos temp;
+        
         foodPositions->getElement(temp, i);
         // Check if food is eaten by the Snake head only
         if (temp.x == playerHeadPos.x && temp.y == playerHeadPos.y)
         {
-            return true;  // Food is eaten
+
+             ///*
+            
+
+            return temp.symbol;
+
+             // Food is eaten
         }
     }
-    return false;  // No food eaten
+    return 0;  // No food eaten
 }
 
 bool FoodBucket::isFoodEatenXY(int x, int y) {
-    for (int i = 0; i < foodPositions->getSize(); ++i)
+    objPos temp;
+    
+    for (int i = 0; i < foodPositions->getSize(); i++)
     {
-        objPos temp;
+        
         foodPositions->getElement(temp, i);
         // Check if food is eaten by the Snake head only
         if (temp.x == x && temp.y == y)
         {
+           
+            //*/
+
             return true;  // Food is eaten
         }
+
+        
+            //}
     }
     return false;  // No food eaten
 }
