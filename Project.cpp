@@ -11,7 +11,7 @@
 
 using namespace std;
 
-#define DELAY_CONST 300000
+#define DELAY_CONST 130000
 
 // Global variables
 bool exitFlag;
@@ -262,7 +262,11 @@ void DrawScreen() {
         MacUILib_printf("\n");
     }
 
+    MacUILib_printf("Score: %d\n", myGM->getScore());
+
     /////////////////////////////Debuging Info/////////////////////////////////////
+    //Uncomment this part for debuging
+    /*
     MacUILib_printf("Score: %d\n", myGM->getScore());
     objPos playerHeadPos;
     playerBody->getHeadElement(playerHeadPos);
@@ -277,6 +281,7 @@ void DrawScreen() {
     }
     //Print out the food positin length
     MacUILib_printf("Food Position List Length: %d\n", foodPositionList->getSize());
+    */
     /////////////////////////////Debuging Info/////////////////////////////////////
     
 }
