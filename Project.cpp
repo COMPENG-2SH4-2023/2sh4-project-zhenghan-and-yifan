@@ -13,7 +13,7 @@ using namespace std;
 
 #define DELAY_CONST 300000
 
-
+// Global variables
 bool exitFlag;
 
 GameMechs* myGM;
@@ -58,6 +58,9 @@ int main(void)
 
 void Initialize(void)
 {
+    /*
+     * This function initializes the game
+     */
     MacUILib_init();
     MacUILib_clearScreen();
     myGM = new GameMechs(15, 30);
@@ -72,17 +75,28 @@ void Initialize(void)
 
 void GetInput(void)
 {
-    myGM -> getInput();
+    /**
+     * This function gets the input from the user by using GameMechs class
+     */
+    myGM -> getInput(); // Get the input from the user
 
 }
 
 void RunLogic(void)
 {
-    myPlayer->updatePlayerDir();
-    myPlayer -> playerCollision();
+    /**
+     * This function runs the logic of the game
+     * It updates the player position and checks if the player collides with itself
+     */
+    myPlayer->updatePlayerDir();  // Update the player direction
+    myPlayer -> playerCollision();  // Check if the player collides with itself
 }
 
 void DrawScreen() {
+    /**
+     * This function draws the screen
+     * It prints the player position and the food position
+     */
     MacUILib_clearScreen();
     bool draw;
 
@@ -93,8 +107,8 @@ void DrawScreen() {
     // Create a 2D array to represent the screen space
     char screen[boardSizeX][boardSizeY];
 
-    objPosArrayList *playerBody = myPlayer->getPlayerPos();
-    objPos tempBody;
+    objPosArrayList *playerBody = myPlayer->getPlayerPos(); // Get the player position
+    objPos tempBody;  // Temporary objPos to store the player body position
 
     // Build the screen layout
     for (int x = 0; x < myGM->getBoardSizeX(); x++)
@@ -129,46 +143,46 @@ void DrawScreen() {
         }
     }
 
-    static bool initMap = true;
+    static bool initMap = true; // Initialize the food
  
-    bool foodeat = false;
-    objPosArrayList *foodPositionList;
-    objPosArrayList *trapPositionList;
+    bool foodeat = false;  // Flag to Check if the food is eaten
+    objPosArrayList *foodPositionList;  // ArrayList to store the food positions
+    objPosArrayList *trapPositionList;  // ArrayList to store the trap positions
     //
-    objPos tempFoodPos;
-    objPos tempTrapPos;
-    objPos tempuserPos;
+    objPos tempFoodPos;  // Temporary objPos to store the food position for the loop
+    objPos tempTrapPos;  // Temporary objPos to store the trap position for the loop
+    objPos tempuserPos;  // Temporary objPos to store the user position for the loop
 
-    if (initMap)
+    if (initMap)  // If the map is not initialized
     {
-        SnakeFoodBucket->generateFoods(playerBody);
-        foodPositionList = SnakeFoodBucket->getFoodPos();
-        traps->generateTraps(foodPositionList,playerBody);
-        trapPositionList = traps->getTrapPos();
+        SnakeFoodBucket->generateFoods(playerBody);  // Generate the food
+        foodPositionList = SnakeFoodBucket->getFoodPos();  // Get the food positions and store them in foodPositionList
+        traps->generateTraps(foodPositionList,playerBody);  // Generate the traps
+        trapPositionList = traps->getTrapPos();  // Get the trap positions and store them in trapPositionList
         //objPos tempFoodPos;
         //objPos tempTrapPos;
         for (int i = 0; i < 5; i++)
+            // Loop through the foodPositionList and trapPositionList and add them to the screen
         {
-            foodPositionList->getElement(tempFoodPos,i);
-            trapPositionList->getElement(tempTrapPos,i);
-            screen[tempFoodPos.x][tempFoodPos.y] = tempFoodPos.symbol;
-            screen[tempTrapPos.x][tempTrapPos.y] = tempTrapPos.symbol;
+            foodPositionList->getElement(tempFoodPos,i);  // Get the food position from the ArrayList
+            trapPositionList->getElement(tempTrapPos,i);  // Get the trap position from the ArrayList
+            screen[tempFoodPos.x][tempFoodPos.y] = tempFoodPos.symbol;  // Add the food position to the screen
+            screen[tempTrapPos.x][tempTrapPos.y] = tempTrapPos.symbol;  // Add the trap position to the screen
         }
-        initMap = false;
+        initMap = false;  // Set the initMap to false
     }
     else
     {
-        //objPos tempuserPos;
-        playerBody->getHeadElement(tempuserPos);
-        int userX = tempuserPos.x;
-        int userY = tempuserPos.y;
-        foodPositionList = SnakeFoodBucket->getFoodPos();
-        trapPositionList = traps->getTrapPos();
+        playerBody->getHeadElement(tempuserPos);  // Get the user position from the ArrayList
+        int userX = tempuserPos.x;  // Get the user x position
+        int userY = tempuserPos.y;  // Get the user y position
+        foodPositionList = SnakeFoodBucket->getFoodPos();  // Get the food positions and store them in foodPositionList
+        trapPositionList = traps->getTrapPos();  // Get the trap positions and store them in trapPositionList
 
-        char eatenChar = SnakeFoodBucket->isFoodEaten(playerBody);
+        char eatenChar = SnakeFoodBucket->isFoodEaten(playerBody);  // Check which food is eaten
 
             switch(eatenChar){
-
+                // different food gives different score and effect
                 case 'N':
                     for(int i = 0; i<5; i++){
                         myGM->incrementScore();

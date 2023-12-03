@@ -31,26 +31,26 @@ GameMechs::GameMechs(int boardX, int boardY)
 // do you need a destructor?
 GameMechs::~GameMechs()
 {
-    /*
-    * This is a destructor
-    */
+    /**
+     * This is a destructor
+     */
 
 
 }
 
 bool GameMechs::getExitFlagStatus()
 {
-    /*
-    * This function returns the exitFlag status
-    */
+    /**
+     * This function returns the exitFlag status
+     */
     return exitFlag;
 }
 
 char GameMechs::getInput()
 {
-    /*
-    * This function returns the input
-    */
+    /**
+     * This function returns the input
+     */
 
     if(MacUILib_hasChar()){
         input = MacUILib_getChar();
@@ -60,53 +60,53 @@ char GameMechs::getInput()
 
 int GameMechs::getBoardSizeX()
 {
-    /*
-    * This function returns the boardSizeX
-    */
+    /**
+     * This function returns the boardSizeX
+     */
     return boardSizeX;
 
 }
 
 int GameMechs::getBoardSizeY()
 {
-    /*
-    * This function returns the boardSizeY
-    */
+    /**
+     * This function returns the boardSizeY
+     */
     return boardSizeY;
 }
 
 
 void GameMechs::setExitTrue()
 {
-    /*
-    * This function sets the exitFlag to true
-    */
+    /**
+     * This function sets the exitFlag to true
+     */
     exitFlag = true;
 }
 
 void GameMechs::setInput(char this_input)
 {
-    /*
-    * This function sets the input
-    */
+    /**
+     * This function sets the input
+     */
     input = this_input;
 
 }
 
 void GameMechs::clearInput()
 {
-    /*
-    * This function clears the input
-    */
+    /**
+     * This function clears the input
+     */
     input = 0;
 
 }
 
 int GameMechs::incrementScore()
 {
-    /*
-    * This function increments the score
-    */
+    /**
+     * This function increments the score
+     */
     // use bool isFoodEaten() to check if food is eaten
     //capture collided symbol, compare ASCII Code
 
@@ -116,9 +116,9 @@ int GameMechs::incrementScore()
 
 int GameMechs::getScore()
 {
-    /*
-    * This function returns the score
-    */
+    /**
+     * This function returns the score
+     */
     return score;
 }
 

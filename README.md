@@ -4,9 +4,19 @@ Project Preparation Activity 3
 
 You must watch the briefing video and read through the manual to engage in the development activities.
 
+Student1: Zhenghan Li
 
-Section: [Insert your lab section]
+    Section: [L09]
 
-MacID: [Insert your macID here]
+    MacID: [li62]
 
-StudentID: [Insert your numerical student ID here]
+    StudentID: [400292371]
+
+
+Student2: Yifan Zhang
+
+    Section: [Insert your lab section]
+
+    MacID: [Insert your macID here]
+
+    StudentID: [Insert your numerical student ID here]

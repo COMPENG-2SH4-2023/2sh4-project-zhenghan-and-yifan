@@ -19,6 +19,10 @@
 
 Player::Player(GameMechs* thisGMRef)
 {
+    /**
+     * This is a constructor
+     * We will initialize all the  data members here
+     */
     mainGameMechsRef = thisGMRef;
     myDir = STOP;
 
@@ -42,6 +46,9 @@ Player::Player(GameMechs* thisGMRef)
 
 Player::~Player()
 {
+    /**
+     * This is a destructor
+     */
     // delete any heap members here
     //no heap member yet...
     //leave it empty for now...
@@ -51,6 +58,9 @@ Player::~Player()
 
 objPosArrayList *Player::getPlayerPos()
 {
+    /**
+     * This function returns the player position
+     */
     // return playerPos by pass by reference
     return playerPosList;
 }
@@ -64,6 +74,10 @@ void Player::getPlayerPos(objPos &returnPos)
 
 void Player::updatePlayerDir()
 {
+    /**
+     * This function updates the player direction based on the input
+     * Logic is based on the Finite State Machine from previous PPA3
+     */
     // PPA3 input processing logic
     // where do I get the input
     //how to check te input
@@ -111,6 +125,10 @@ void Player::updatePlayerDir()
 
 void Player::movePlayer()
 {
+    /**
+     * This function move the player position based on the direction
+     * Logic is based on the Finite State Machine from previous PPA3
+     */
     // PPA3 Finite State Machine logic
     //get the board size managed by GameMech
 
@@ -165,6 +183,9 @@ void Player::movePlayer()
 
 void Player::increasePlayerLength()
 {
+    /**
+     * This function increases the player length by 1
+     */
     objPos currentHead;
     playerPosList->getHeadElement(currentHead);
     objPos newHead;
@@ -189,7 +210,12 @@ void Player::increasePlayerLength()
 
 
 
-void Player::playerCollision(){
+void Player::playerCollision()
+{
+    /**
+     * This function checks if the player collides with itself
+     * if yes, set the exitFlag to true
+     */
     objPos temp;
     objPos tempHead;
     playerPosList->getHeadElement(tempHead);

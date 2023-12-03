@@ -5,10 +5,10 @@
 
 SnakeTrap::SnakeTrap()
 {
-    /*
-    * This is a constructor
-    * We will initialize all the  data members here
-    */
+    /**
+     * This is a constructor
+     * We will initialize all the  data members here
+     */
     srand(time(NULL));
     trapListSize = 5;
     trapSymbol = 'X';  // Trap symbol, exit the game if eaten
@@ -20,12 +20,15 @@ SnakeTrap::SnakeTrap()
 
 SnakeTrap::~SnakeTrap()
 {
-
+    /**
+     * This is a destructor
+     * We will deallocate all the dynamic memory here
+     */
     delete[] trapPositions;
 }
 
 void SnakeTrap::randomizeTrapPos(int &x, int &y){
-    /*
+    /**
      * This function generates thr random trap position
      */
     x = rand() % 15;  
@@ -33,6 +36,9 @@ void SnakeTrap::randomizeTrapPos(int &x, int &y){
 }
 
 void SnakeTrap::generateTraps(objPosArrayList* foodPositions,objPosArrayList* playerPosList){
+    /**
+     * This function generates the trap positions
+     */
     int x = 0, y = 0;
     int count = 0;
     bool valid, advancedValid;
@@ -54,6 +60,12 @@ void SnakeTrap::generateTraps(objPosArrayList* foodPositions,objPosArrayList* pl
 
 bool SnakeTrap::positionValidation(objPosArrayList *list, objPosArrayList* foodPositions, int x, int y)
 {
+    /**
+     * This function checks if the trap position is the same as the previous trap position and all other restrictions
+     * Same logic as the food position validation in FoodBucket.cpp
+     * if yes, return false
+     * if no, return true
+     */
     for (int j = 0; j < list->getSize(); j++)
     // Check if the trap position is the same as the previous trap position
     {
@@ -88,8 +100,9 @@ bool SnakeTrap::positionValidation(objPosArrayList *list, objPosArrayList* foodP
 
 bool SnakeTrap::AdvancedPositionValidation(objPosArrayList* playerPosList, int x, int y)
 {
-    /*
+    /**
      * This function checks if the trap position is the same as the player body
+     * Same logic as the food position validation in FoodBucket.cpp
      * if yes, return false
      * if no, return true
      */
@@ -107,6 +120,10 @@ bool SnakeTrap::AdvancedPositionValidation(objPosArrayList* playerPosList, int x
 
 
 void SnakeTrap::addItemToList(int x, int y){
+    /**
+     * This function adds the trap position to the trap position list
+     * Same logic with the addItemToList in FoodBucket.cpp
+     */
     objPos newPos;
     newPos.setObjPos(x, y, trapSymbol);
 
@@ -118,10 +135,18 @@ void SnakeTrap::addItemToList(int x, int y){
 }
 
 objPosArrayList *SnakeTrap::getTrapPos(){
+    /**
+     * This function returns the trap position list
+     */
     return trapPositions;
 }
 
 bool SnakeTrap::isTrapTriggered(objPosArrayList* playerPosList) {
+    /**
+     * This function checks if the trap is eaten by the Snake head
+     * if yes, return true
+     * if no, return false
+     */
     if (playerPosList == nullptr || playerPosList->getSize() == 0)
     {
         return false;  // No player position available to check
@@ -143,6 +168,11 @@ bool SnakeTrap::isTrapTriggered(objPosArrayList* playerPosList) {
 }
 
 bool SnakeTrap::isTrapTriggeredXY(int x, int y) {
+    /**
+     * This function checks if the trap is eaten by the Snake head with the given x and y of the head
+     * if yes, return true
+     * if no, return false
+     */
     for (int i = 0; i < trapPositions->getSize(); ++i)
     {
         objPos temp;
