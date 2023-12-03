@@ -11,26 +11,24 @@ SnakeTrap::SnakeTrap()
     */
     srand(time(NULL));
     trapListSize = 5;
-    trapSymbol = 'X';  // Advanced Food symbol
+    trapSymbol = 'X';  // Trap symbol, exit the game if eaten
     objPos temp;  // Temporary objPos
     temp.setObjPos(0, 0, '\0');  // Initialize temp
-    trapPositions = new objPosArrayList(); // Dynamic array for food positions
-    trapPositions->insertHead(temp); // Initialize foodPositions by inserting temp
+    trapPositions = new objPosArrayList(); // Dynamic array for trap positions
+    trapPositions->insertHead(temp); // Initialize trapPositions by inserting temp
 }
 
 SnakeTrap::~SnakeTrap()
 {
-    /*
-    * This is a destructor
-    */
+
     delete[] trapPositions;
 }
 
 void SnakeTrap::randomizeTrapPos(int &x, int &y){
     /*
-     * This function generates a single food position
+     * This function generates thr random trap position
      */
-    x = rand() % 15;  //following the instruction of PPA3
+    x = rand() % 15;  
     y = rand() % 30;
 }
 
@@ -38,14 +36,7 @@ void SnakeTrap::generateTraps(objPosArrayList* foodPositions,objPosArrayList* pl
     int x = 0, y = 0;
     int count = 0;
     bool valid, advancedValid;
-    //for(int i = 0; i<listSize;i++){
-         //if(foodPositions->getSize() == 0)
-    //{
-        
-        //break;
-    //}
-        //foodPositions->removeTail();
-    //}
+
     while (count < trapListSize)
     {
         randomizeTrapPos(x, y);
@@ -64,7 +55,7 @@ void SnakeTrap::generateTraps(objPosArrayList* foodPositions,objPosArrayList* pl
 bool SnakeTrap::positionValidation(objPosArrayList *list, objPosArrayList* foodPositions, int x, int y)
 {
     for (int j = 0; j < list->getSize(); j++)
-    // Check if the food position is the same as the previous food position
+    // Check if the trap position is the same as the previous trap position
     {
         objPos tempTraps;
         list->getElement(tempTraps, j);
@@ -73,7 +64,7 @@ bool SnakeTrap::positionValidation(objPosArrayList *list, objPosArrayList* foodP
             return false;
         }
     }
-    // Check if the food position is the same as the player position
+    // Check if the trap position is the same as the player position
     for (int j = 0; j < foodPositions->getSize(); j++)
     {
         objPos tempPos;
@@ -98,7 +89,7 @@ bool SnakeTrap::positionValidation(objPosArrayList *list, objPosArrayList* foodP
 bool SnakeTrap::AdvancedPositionValidation(objPosArrayList* playerPosList, int x, int y)
 {
     /*
-     * This function checks if the food position is the same as the player body
+     * This function checks if the trap position is the same as the player body
      * if yes, return false
      * if no, return true
      */
@@ -141,14 +132,14 @@ bool SnakeTrap::isTrapTriggered(objPosArrayList* playerPosList) {
     {
         objPos temp;
         trapPositions->getElement(temp, i);
-        // Check if food is eaten by the Snake head only
+        // Check if trap is eaten by the Snake head only
         if (temp.x == playerHeadPos.x && temp.y == playerHeadPos.y)
         {
             //mainGameMechsRef->setExitTrue();
-            return true;  // Food is eaten
+            return true;  // trap is eaten
         }
     }
-    return false;  // No food eaten
+    return false;  // No trap eaten
 }
 
 bool SnakeTrap::isTrapTriggeredXY(int x, int y) {
@@ -156,11 +147,11 @@ bool SnakeTrap::isTrapTriggeredXY(int x, int y) {
     {
         objPos temp;
         trapPositions->getElement(temp, i);
-        // Check if food is eaten by the Snake head only
+        // Check if trpa is eaten by the Snake head only
         if (temp.x == x && temp.y == y)
         {
-            return true;  // Food is eaten
+            return true;  // trap is eaten
         }
     }
-    return false;  // No food eaten
+    return false;  // No trap eaten
 }

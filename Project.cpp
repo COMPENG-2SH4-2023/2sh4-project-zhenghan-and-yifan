@@ -130,58 +130,23 @@ void DrawScreen() {
     }
 
     static bool initMap = true;
-    /////////////////////////////Version using Food Class Start /////////////////////////////////////
-    /*
-    objPos foodPosition[5];
-    objPos CurrentHead;
-    playerBody->getElement(CurrentHead,0);
-
-    if (isFoodEaten) {
-        SnakeFood->generateFood(CurrentHead);
-        SnakeFood->getFoodPos(foodPosition);
-        for (int i = 0; i < 5; i++) {
-            screen[foodPosition[i].x][foodPosition[i].y] = foodPosition[i].symbol;
-        }
-        isFoodEaten = false;
-    }
-    else
-    {
-        //SnakeFood->generateFood(playerPosition);
-        SnakeFood->getFoodPos(foodPosition);
-        // Check if food is eaten
-        if (SnakeFood->isFoodEaten(CurrentHead)) {
-            //if food is eaten, generate new food
-            SnakeFood->generateFood(CurrentHead);
-            SnakeFood->getFoodPos(foodPosition); // Update food positions array
-            myGM->incrementScore();
-            myPlayer->increasePlayerLength();
-            for (int i = 0; i < 5; i++) {
-                //update the screen
-                screen[foodPosition[i].x][foodPosition[i].y] = foodPosition[i].symbol;
-            }
-        }
-        else
-        {
-            for (int i = 0; i < 5; i++) {
-                //update the screen, but not generate new food
-                screen[foodPosition[i].x][foodPosition[i].y] = foodPosition[i].symbol;
-            }
-        }
-    }
-    */
-    /////////////////////////////Version using Food Class End/////////////////////////////////////
-    /////////////////////////////Version using FoodBucket Class Start /////////////////////////////////////
+ 
     bool foodeat = false;
     objPosArrayList *foodPositionList;
     objPosArrayList *trapPositionList;
+    //
+    objPos tempFoodPos;
+    objPos tempTrapPos;
+    objPos tempuserPos;
+
     if (initMap)
     {
         SnakeFoodBucket->generateFoods(playerBody);
         foodPositionList = SnakeFoodBucket->getFoodPos();
         traps->generateTraps(foodPositionList,playerBody);
         trapPositionList = traps->getTrapPos();
-        objPos tempFoodPos;
-        objPos tempTrapPos;
+        //objPos tempFoodPos;
+        //objPos tempTrapPos;
         for (int i = 0; i < 5; i++)
         {
             foodPositionList->getElement(tempFoodPos,i);
@@ -193,7 +158,7 @@ void DrawScreen() {
     }
     else
     {
-        objPos tempuserPos;
+        //objPos tempuserPos;
         playerBody->getHeadElement(tempuserPos);
         int userX = tempuserPos.x;
         int userY = tempuserPos.y;
@@ -235,66 +200,16 @@ void DrawScreen() {
         // Check if food is eaten
         if (SnakeFoodBucket->isFoodEatenXY(userX, userY))
         {
-            objPos tempFoodPos;
-            objPos tempTrapPos;
+            //objPos tempFoodPos;
+            //objPos tempTrapPos;
             //if food is eaten, generate new food
             SnakeFoodBucket->generateFoods(playerBody);
             foodPositionList = SnakeFoodBucket->getFoodPos(); // Update food positions array
-            ///////////////////////////// Traps Start //////////////////////////////////
-            traps->generateTraps(foodPositionList,playerBody);
-            
-            //myGM->incrementScore();
-
-            
+             
+            traps->generateTraps(foodPositionList,playerBody);         
 
             initMap = false;
 
-            /*
-            for(int i = 0; i < (foodPositionList->getSize());i++){
-
-            
-            foodPositionList->getElement(tempFoodPos,i);
-            ///////////////////////////// Traps End ///////////////////////////////////
-            if(tempFoodPos.symbol == 'N'){
-
-                for(int i = 0; i++; i<5){
-                    myGM->incrementScore();
-                }
-
-                //break;
-
-            }
-
-            else if(tempFoodPos.symbol == 'P'){
-
-                for(int i = 0; i<10; i++){
-                    myGM->incrementScore();
-                }
-
-                for(int i = 0; i<2; i++){
-                    myPlayer->increasePlayerLength();
-                }
-
-                //break;
-
-
-                }
-            
-                else if(tempFoodPos.symbol == 'O'){
-
-                
-                    myGM->incrementScore();
-                
-                    myPlayer->increasePlayerLength();
-
-                    //break;               
-
-
-                }
-                
-            }
-            */
-            
             for (int i = 0; i < 5; i++)
             {
                 foodPositionList->getElement(tempFoodPos,i);
@@ -312,8 +227,8 @@ void DrawScreen() {
         }
         //
 
-        objPos tempFoodPos;
-        objPos tempTrapPos;
+        //objPos tempFoodPos;
+        //objPos tempTrapPos;
         for (int i = 0; i < 5; i++)
         {
             foodPositionList->getElement(tempFoodPos,i);
@@ -322,8 +237,6 @@ void DrawScreen() {
             screen[tempTrapPos.x][tempTrapPos.y] = tempTrapPos.symbol;
         }
     }
-    /////////////////////////////Version using FoodBucket Class End/////////////////////////////////////
-
     
     // Print the screen
     for (int x = 0; x < boardSizeX; x++)
@@ -334,13 +247,14 @@ void DrawScreen() {
         }
         MacUILib_printf("\n");
     }
-    //print debug info
+
+    /////////////////////////////Debuging Info/////////////////////////////////////
     MacUILib_printf("Score: %d\n", myGM->getScore());
     objPos playerHeadPos;
     playerBody->getHeadElement(playerHeadPos);
     MacUILib_printf("Player Head: (%d, %d)\n", playerHeadPos.x, playerHeadPos.y);
     //print out food position
-    objPos tempFoodPos;
+    //objPos tempFoodPos;
     for (int i = 0; i < 5; i++)
     {
         foodPositionList->getElement(tempFoodPos,i);
@@ -349,6 +263,7 @@ void DrawScreen() {
     }
     //Print out the food positin length
     MacUILib_printf("Food Position List Length: %d\n", foodPositionList->getSize());
+    /////////////////////////////Debuging Info/////////////////////////////////////
     
 }
 

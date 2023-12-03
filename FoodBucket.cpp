@@ -89,10 +89,12 @@ void FoodBucket::generateFoods(objPosArrayList* playerPosList){
 
 bool FoodBucket::positionValidation(objPosArrayList *list, objPosArrayList* playerPosList, int x, int y)
 {
+    objPos tempFood;
+    objPos tempPos;
     for (int j = 0; j < list->getSize(); j++)
     // Check if the food position is the same as the previous food position
     {
-        objPos tempFood;
+        //objPos tempFood;
         list->getElement(tempFood, j);
         if ((tempFood.x == x && tempFood.y == y))
         {
@@ -173,16 +175,10 @@ char FoodBucket::isFoodEaten(objPosArrayList* playerPosList) {
     {
         
         foodPositions->getElement(temp, i);
-        // Check if food is eaten by the Snake head only
+        // Check if food is eaten by the Snake head only, if yes, return the eaten food symbol
         if (temp.x == playerHeadPos.x && temp.y == playerHeadPos.y)
         {
-
-             ///*
-            
-
             return temp.symbol;
-
-             // Food is eaten
         }
     }
     return 0;  // No food eaten
