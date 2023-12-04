@@ -1,0 +1,253 @@
+Dr. Memory version 2.6.0 build 0 built on Sep 21 2023 17:48:48
+Windows version: WinVer=105;Rel=2009;Build=22631;Edition=Enterprise
+Dr. Memory results for pid 27520: "Project.exe"
+Application cmdline: "C:\COMPENG_2SH4_Code\Project_Snake\2sh4-project-zhenghan-and-yifan\Project.exe"
+Recorded 124 suppression(s) from default C:\Program Files (x86)\Dr. Memory\bin\suppress-default.txt
+
+Error #1: UNINITIALIZED READ: reading register eax
+# 0 KERNELBASE.dll!FindNextFileW      +0x20e    (0x7577fc4e <KERNELBASE.dll+0x11fc4e>)
+# 1 KERNELBASE.dll!FindNextFileA      +0x33     (0x75870514 <KERNELBASE.dll+0x210514>)
+# 2 .text                              [C:\COMPENG_2SH4_Code\Project_Snake\2sh4-project-zhenghan-and-yifan/MacUILib.c:45]
+# 3 __mingw_glob                       [C:\COMPENG_2SH4_Code\Project_Snake\2sh4-project-zhenghan-and-yifan/MacUILib.c:45]
+# 4 _setargv                           [C:\COMPENG_2SH4_Code\Project_Snake\2sh4-project-zhenghan-and-yifan/MacUILib.c:45]
+# 5 .text      
+# 6 mainCRTStartup
+# 7 ntdll.dll!__RtlUserThreadStart
+Note: @0:00:00.258 in thread 3040
+Note: instruction: cmp    %eax $0x0000001a
+
+Error #2: UNINITIALIZED READ: reading register eax
+# 0 KERNELBASE.dll!FindNextFileW      +0x23b    (0x7577fc7b <KERNELBASE.dll+0x11fc7b>)
+# 1 KERNELBASE.dll!FindNextFileA      +0x33     (0x75870514 <KERNELBASE.dll+0x210514>)
+# 2 .text                              [C:\COMPENG_2SH4_Code\Project_Snake\2sh4-project-zhenghan-and-yifan/MacUILib.c:45]
+# 3 __mingw_glob                       [C:\COMPENG_2SH4_Code\Project_Snake\2sh4-project-zhenghan-and-yifan/MacUILib.c:45]
+# 4 _setargv                           [C:\COMPENG_2SH4_Code\Project_Snake\2sh4-project-zhenghan-and-yifan/MacUILib.c:45]
+# 5 .text      
+# 6 mainCRTStartup
+# 7 ntdll.dll!__RtlUserThreadStart
+Note: @0:00:00.260 in thread 3040
+Note: instruction: data16 mov    %cx -> 0x00000234(%ebx,%eax,2)
+
+Error #3: UNINITIALIZED READ: reading register eax
+# 0 KERNELBASE.dll!FindNextFileW      +0x1ca    (0x7577fc0a <KERNELBASE.dll+0x11fc0a>)
+# 1 KERNELBASE.dll!FindNextFileA      +0x33     (0x75870514 <KERNELBASE.dll+0x210514>)
+# 2 .text                              [C:\COMPENG_2SH4_Code\Project_Snake\2sh4-project-zhenghan-and-yifan/MacUILib.c:45]
+# 3 __mingw_glob                       [C:\COMPENG_2SH4_Code\Project_Snake\2sh4-project-zhenghan-and-yifan/MacUILib.c:45]
+# 4 _setargv                           [C:\COMPENG_2SH4_Code\Project_Snake\2sh4-project-zhenghan-and-yifan/MacUILib.c:45]
+# 5 .text      
+# 6 mainCRTStartup
+# 7 ntdll.dll!__RtlUserThreadStart
+Note: @0:00:00.264 in thread 3040
+Note: instruction: cmp    %eax $0x00000206
+
+Error #4: UNINITIALIZED READ: reading register eax
+# 0 KERNELBASE.dll!FindNextFileW      +0x1fd    (0x7577fc3d <KERNELBASE.dll+0x11fc3d>)
+# 1 KERNELBASE.dll!FindNextFileA      +0x33     (0x75870514 <KERNELBASE.dll+0x210514>)
+# 2 .text                              [C:\COMPENG_2SH4_Code\Project_Snake\2sh4-project-zhenghan-and-yifan/MacUILib.c:45]
+# 3 __mingw_glob                       [C:\COMPENG_2SH4_Code\Project_Snake\2sh4-project-zhenghan-and-yifan/MacUILib.c:45]
+# 4 _setargv                           [C:\COMPENG_2SH4_Code\Project_Snake\2sh4-project-zhenghan-and-yifan/MacUILib.c:45]
+# 5 .text      
+# 6 mainCRTStartup
+# 7 ntdll.dll!__RtlUserThreadStart
+Note: @0:00:00.264 in thread 3040
+Note: instruction: data16 mov    %cx -> 0x2c(%ebx,%eax,2)
+
+Error #5: UNINITIALIZED READ: reading 0x01481330-0x01481334 4 byte(s)
+# 0 KERNELBASE.dll!FindNextFileW      +0x24e    (0x7577fc8e <KERNELBASE.dll+0x11fc8e>)
+# 1 KERNELBASE.dll!FindNextFileA      +0x33     (0x75870514 <KERNELBASE.dll+0x210514>)
+# 2 .text                              [C:\COMPENG_2SH4_Code\Project_Snake\2sh4-project-zhenghan-and-yifan/MacUILib.c:45]
+# 3 __mingw_glob                       [C:\COMPENG_2SH4_Code\Project_Snake\2sh4-project-zhenghan-and-yifan/MacUILib.c:45]
+# 4 _setargv                           [C:\COMPENG_2SH4_Code\Project_Snake\2sh4-project-zhenghan-and-yifan/MacUILib.c:45]
+# 5 .text      
+# 6 mainCRTStartup
+# 7 ntdll.dll!__RtlUserThreadStart
+Note: @0:00:00.264 in thread 3040
+Note: instruction: test   0x38(%edi) $0x00000400
+
+Error #6: UNINITIALIZED READ: reading register eax
+# 0 .text                              [C:\COMPENG_2SH4_Code\Project_Snake\2sh4-project-zhenghan-and-yifan/MacUILib.c:45]
+# 1 __mingw_readdir                    [C:\COMPENG_2SH4_Code\Project_Snake\2sh4-project-zhenghan-and-yifan/MacUILib.c:45]
+# 2 .text                              [C:\COMPENG_2SH4_Code\Project_Snake\2sh4-project-zhenghan-and-yifan/MacUILib.c:45]
+# 3 __mingw_glob                       [C:\COMPENG_2SH4_Code\Project_Snake\2sh4-project-zhenghan-and-yifan/MacUILib.c:45]
+# 4 _setargv                           [C:\COMPENG_2SH4_Code\Project_Snake\2sh4-project-zhenghan-and-yifan/MacUILib.c:45]
+# 5 .text      
+# 6 mainCRTStartup
+# 7 ntdll.dll!__RtlUserThreadStart
+Note: @0:00:00.266 in thread 3040
+Note: instruction: cmp    %eax $0x00000010
+
+Error #7: UNINITIALIZED READ: reading register eax
+# 0 KERNELBASE.dll!FindNextFileW      +0x167    (0x7577fba7 <KERNELBASE.dll+0x11fba7>)
+# 1 KERNELBASE.dll!FindNextFileA      +0x33     (0x75870514 <KERNELBASE.dll+0x210514>)
+# 2 .text                              [C:\COMPENG_2SH4_Code\Project_Snake\2sh4-project-zhenghan-and-yifan/MacUILib.c:45]
+# 3 __mingw_glob                       [C:\COMPENG_2SH4_Code\Project_Snake\2sh4-project-zhenghan-and-yifan/MacUILib.c:45]
+# 4 _setargv                           [C:\COMPENG_2SH4_Code\Project_Snake\2sh4-project-zhenghan-and-yifan/MacUILib.c:45]
+# 5 .text      
+# 6 mainCRTStartup
+# 7 ntdll.dll!__RtlUserThreadStart
+Note: @0:00:00.266 in thread 3040
+Note: instruction: test   %eax %eax
+
+Error #8: UNINITIALIZED READ: reading 0x0062fe84-0x0062fe88 4 byte(s)
+# 0 msvcrt.dll!_getch_nolock
+# 1 msvcrt.dll!_getch    
+# 2 MacUILib_getChar                  [C:\COMPENG_2SH4_Code\Project_Snake\2sh4-project-zhenghan-and-yifan/MacUILib.c:32]
+# 3 GameMechs::getInput               [C:\COMPENG_2SH4_Code\Project_Snake\2sh4-project-zhenghan-and-yifan/GameMechs.cpp:56]
+# 4 GetInput                          [C:\COMPENG_2SH4_Code\Project_Snake\2sh4-project-zhenghan-and-yifan/Project.cpp:81]
+# 5 main                              [C:\COMPENG_2SH4_Code\Project_Snake\2sh4-project-zhenghan-and-yifan/Project.cpp:48]
+Note: @0:00:04.831 in thread 3040
+Note: instruction: cmp    0xffffffe0(%ebp) $0x00000000
+
+Error #9: UNINITIALIZED READ: reading 0x0062fde8-0x0062fdea 2 byte(s)
+# 0 msvcrt.dll!_kbhit_nolock
+# 1 msvcrt.dll!_kbhit    
+# 2 MacUILib_hasChar                      [C:\COMPENG_2SH4_Code\Project_Snake\2sh4-project-zhenghan-and-yifan/MacUILib.c:27]
+# 3 GameMechs::getInput                   [C:\COMPENG_2SH4_Code\Project_Snake\2sh4-project-zhenghan-and-yifan/GameMechs.cpp:55]
+# 4 Player::movePlayer                    [C:\COMPENG_2SH4_Code\Project_Snake\2sh4-project-zhenghan-and-yifan/Player.cpp:142]
+# 5 Player::updatePlayerDir               [C:\COMPENG_2SH4_Code\Project_Snake\2sh4-project-zhenghan-and-yifan/Player.cpp:121]
+# 6 RunLogic                              [C:\COMPENG_2SH4_Code\Project_Snake\2sh4-project-zhenghan-and-yifan/Project.cpp:91]
+# 7 main                                  [C:\COMPENG_2SH4_Code\Project_Snake\2sh4-project-zhenghan-and-yifan/Project.cpp:49]
+Note: @0:00:04.836 in thread 3040
+Note: instruction: data16 cmp    0xfffffffc(%ebx) %si
+
+Error #10: UNINITIALIZED READ: reading 0x0062fdec-0x0062fdf0 4 byte(s)
+# 0 msvcrt.dll!_kbhit_nolock
+# 1 msvcrt.dll!_kbhit    
+# 2 MacUILib_hasChar                      [C:\COMPENG_2SH4_Code\Project_Snake\2sh4-project-zhenghan-and-yifan/MacUILib.c:27]
+# 3 GameMechs::getInput                   [C:\COMPENG_2SH4_Code\Project_Snake\2sh4-project-zhenghan-and-yifan/GameMechs.cpp:55]
+# 4 Player::movePlayer                    [C:\COMPENG_2SH4_Code\Project_Snake\2sh4-project-zhenghan-and-yifan/Player.cpp:142]
+# 5 Player::updatePlayerDir               [C:\COMPENG_2SH4_Code\Project_Snake\2sh4-project-zhenghan-and-yifan/Player.cpp:121]
+# 6 RunLogic                              [C:\COMPENG_2SH4_Code\Project_Snake\2sh4-project-zhenghan-and-yifan/Project.cpp:91]
+# 7 main                                  [C:\COMPENG_2SH4_Code\Project_Snake\2sh4-project-zhenghan-and-yifan/Project.cpp:49]
+Note: @0:00:04.837 in thread 3040
+Note: instruction: cmp    (%ebx) $0x00000000
+
+Error #11: UNINITIALIZED READ: reading 0x0062fe38-0x0062fe3a 2 byte(s)
+# 0 msvcrt.dll!_kbhit_nolock
+# 1 msvcrt.dll!_kbhit    
+# 2 MacUILib_hasChar                      [C:\COMPENG_2SH4_Code\Project_Snake\2sh4-project-zhenghan-and-yifan/MacUILib.c:27]
+# 3 GameMechs::getInput                   [C:\COMPENG_2SH4_Code\Project_Snake\2sh4-project-zhenghan-and-yifan/GameMechs.cpp:55]
+# 4 Player::updatePlayerDir               [C:\COMPENG_2SH4_Code\Project_Snake\2sh4-project-zhenghan-and-yifan/Player.cpp:90]
+# 5 RunLogic                              [C:\COMPENG_2SH4_Code\Project_Snake\2sh4-project-zhenghan-and-yifan/Project.cpp:91]
+# 6 main                                  [C:\COMPENG_2SH4_Code\Project_Snake\2sh4-project-zhenghan-and-yifan/Project.cpp:49]
+Note: @0:00:05.204 in thread 3040
+Note: instruction: data16 cmp    0xfffffffc(%ebx) %si
+
+Error #12: UNINITIALIZED READ: reading 0x0062fde8-0x0062fdea 2 byte(s)
+# 0 msvcrt.dll!_kbhit_nolock
+# 1 msvcrt.dll!_kbhit    
+# 2 MacUILib_hasChar                      [C:\COMPENG_2SH4_Code\Project_Snake\2sh4-project-zhenghan-and-yifan/MacUILib.c:27]
+# 3 GameMechs::getInput                   [C:\COMPENG_2SH4_Code\Project_Snake\2sh4-project-zhenghan-and-yifan/GameMechs.cpp:55]
+# 4 Player::movePlayer                    [C:\COMPENG_2SH4_Code\Project_Snake\2sh4-project-zhenghan-and-yifan/Player.cpp:140]
+# 5 Player::updatePlayerDir               [C:\COMPENG_2SH4_Code\Project_Snake\2sh4-project-zhenghan-and-yifan/Player.cpp:121]
+# 6 RunLogic                              [C:\COMPENG_2SH4_Code\Project_Snake\2sh4-project-zhenghan-and-yifan/Project.cpp:91]
+# 7 main                                  [C:\COMPENG_2SH4_Code\Project_Snake\2sh4-project-zhenghan-and-yifan/Project.cpp:49]
+Note: @0:00:05.206 in thread 3040
+Note: instruction: data16 cmp    0xfffffffc(%ebx) %si
+
+Error #13: UNINITIALIZED READ: reading 0x0062fe5c-0x0062fe60 4 byte(s)
+# 0 msvcrt.dll!_kbhit_nolock
+# 1 msvcrt.dll!_kbhit    
+# 2 MacUILib_hasChar                  [C:\COMPENG_2SH4_Code\Project_Snake\2sh4-project-zhenghan-and-yifan/MacUILib.c:27]
+# 3 GameMechs::getInput               [C:\COMPENG_2SH4_Code\Project_Snake\2sh4-project-zhenghan-and-yifan/GameMechs.cpp:55]
+# 4 GetInput                          [C:\COMPENG_2SH4_Code\Project_Snake\2sh4-project-zhenghan-and-yifan/Project.cpp:81]
+# 5 main                              [C:\COMPENG_2SH4_Code\Project_Snake\2sh4-project-zhenghan-and-yifan/Project.cpp:48]
+Note: @0:00:15.985 in thread 3040
+Note: instruction: cmp    (%ebx) $0x00000000
+
+Error #14: UNINITIALIZED READ: reading register edi
+# 0 msvcrt.dll!_kbhit_nolock
+# 1 msvcrt.dll!_kbhit    
+# 2 MacUILib_hasChar                      [C:\COMPENG_2SH4_Code\Project_Snake\2sh4-project-zhenghan-and-yifan/MacUILib.c:27]
+# 3 GameMechs::getInput                   [C:\COMPENG_2SH4_Code\Project_Snake\2sh4-project-zhenghan-and-yifan/GameMechs.cpp:55]
+# 4 Player::updatePlayerDir               [C:\COMPENG_2SH4_Code\Project_Snake\2sh4-project-zhenghan-and-yifan/Player.cpp:90]
+# 5 RunLogic                              [C:\COMPENG_2SH4_Code\Project_Snake\2sh4-project-zhenghan-and-yifan/Project.cpp:91]
+# 6 main                                  [C:\COMPENG_2SH4_Code\Project_Snake\2sh4-project-zhenghan-and-yifan/Project.cpp:49]
+Note: @0:00:15.989 in thread 3040
+Note: instruction: test   %edi %edi
+
+Error #15: UNINITIALIZED READ: reading register edi
+# 0 msvcrt.dll!_kbhit_nolock
+# 1 msvcrt.dll!_kbhit    
+# 2 MacUILib_hasChar                      [C:\COMPENG_2SH4_Code\Project_Snake\2sh4-project-zhenghan-and-yifan/MacUILib.c:27]
+# 3 GameMechs::getInput                   [C:\COMPENG_2SH4_Code\Project_Snake\2sh4-project-zhenghan-and-yifan/GameMechs.cpp:55]
+# 4 Player::movePlayer                    [C:\COMPENG_2SH4_Code\Project_Snake\2sh4-project-zhenghan-and-yifan/Player.cpp:142]
+# 5 Player::updatePlayerDir               [C:\COMPENG_2SH4_Code\Project_Snake\2sh4-project-zhenghan-and-yifan/Player.cpp:121]
+# 6 RunLogic                              [C:\COMPENG_2SH4_Code\Project_Snake\2sh4-project-zhenghan-and-yifan/Project.cpp:91]
+# 7 main                                  [C:\COMPENG_2SH4_Code\Project_Snake\2sh4-project-zhenghan-and-yifan/Project.cpp:49]
+Note: @0:00:15.991 in thread 3040
+Note: instruction: test   %edi %edi
+
+Error #16: UNINITIALIZED READ: reading 0x0062fe2c-0x0062fe30 4 byte(s)
+# 0 msvcrt.dll!_kbhit_nolock
+# 1 msvcrt.dll!_kbhit    
+# 2 MacUILib_hasChar                      [C:\COMPENG_2SH4_Code\Project_Snake\2sh4-project-zhenghan-and-yifan/MacUILib.c:27]
+# 3 GameMechs::getInput                   [C:\COMPENG_2SH4_Code\Project_Snake\2sh4-project-zhenghan-and-yifan/GameMechs.cpp:55]
+# 4 Player::updatePlayerDir               [C:\COMPENG_2SH4_Code\Project_Snake\2sh4-project-zhenghan-and-yifan/Player.cpp:90]
+# 5 RunLogic                              [C:\COMPENG_2SH4_Code\Project_Snake\2sh4-project-zhenghan-and-yifan/Project.cpp:91]
+# 6 main                                  [C:\COMPENG_2SH4_Code\Project_Snake\2sh4-project-zhenghan-and-yifan/Project.cpp:49]
+Note: @0:00:17.855 in thread 3040
+Note: instruction: cmp    (%ebx) $0x00000000
+
+Error #17: UNINITIALIZED READ: reading 0x0062fe54-0x0062fe58 4 byte(s)
+# 0 msvcrt.dll!_getch_nolock
+# 1 msvcrt.dll!_getch    
+# 2 MacUILib_getChar                      [C:\COMPENG_2SH4_Code\Project_Snake\2sh4-project-zhenghan-and-yifan/MacUILib.c:32]
+# 3 GameMechs::getInput                   [C:\COMPENG_2SH4_Code\Project_Snake\2sh4-project-zhenghan-and-yifan/GameMechs.cpp:56]
+# 4 Player::updatePlayerDir               [C:\COMPENG_2SH4_Code\Project_Snake\2sh4-project-zhenghan-and-yifan/Player.cpp:90]
+# 5 RunLogic                              [C:\COMPENG_2SH4_Code\Project_Snake\2sh4-project-zhenghan-and-yifan/Project.cpp:91]
+# 6 main                                  [C:\COMPENG_2SH4_Code\Project_Snake\2sh4-project-zhenghan-and-yifan/Project.cpp:49]
+Note: @0:00:17.856 in thread 3040
+Note: instruction: cmp    0xffffffe0(%ebp) $0x00000000
+
+Error #18: UNINITIALIZED READ: reading register edi
+# 0 msvcrt.dll!_kbhit_nolock
+# 1 msvcrt.dll!_kbhit    
+# 2 MacUILib_hasChar                      [C:\COMPENG_2SH4_Code\Project_Snake\2sh4-project-zhenghan-and-yifan/MacUILib.c:27]
+# 3 GameMechs::getInput                   [C:\COMPENG_2SH4_Code\Project_Snake\2sh4-project-zhenghan-and-yifan/GameMechs.cpp:55]
+# 4 Player::movePlayer                    [C:\COMPENG_2SH4_Code\Project_Snake\2sh4-project-zhenghan-and-yifan/Player.cpp:140]
+# 5 Player::updatePlayerDir               [C:\COMPENG_2SH4_Code\Project_Snake\2sh4-project-zhenghan-and-yifan/Player.cpp:121]
+# 6 RunLogic                              [C:\COMPENG_2SH4_Code\Project_Snake\2sh4-project-zhenghan-and-yifan/Project.cpp:91]
+# 7 main                                  [C:\COMPENG_2SH4_Code\Project_Snake\2sh4-project-zhenghan-and-yifan/Project.cpp:49]
+Note: @0:00:17.859 in thread 3040
+Note: instruction: test   %edi %edi
+
+===========================================================================
+FINAL SUMMARY:
+
+DUPLICATE ERROR COUNTS:
+	Error #   1:     20
+	Error #   2:     19
+	Error #   3:     12
+	Error #   4:     12
+	Error #   5:     12
+	Error #   6:     12
+	Error #   7:     11
+	Error #   8:     13
+	Error #   9:     44
+	Error #  10:     44
+	Error #  11:     38
+	Error #  12:     40
+	Error #  13:      4
+	Error #  14:      3
+	Error #  15:      4
+
+SUPPRESSIONS USED:
+
+ERRORS FOUND:
+      0 unique,     0 total unaddressable access(es)
+     18 unique,   291 total uninitialized access(es)
+      0 unique,     0 total invalid heap argument(s)
+      0 unique,     0 total GDI usage error(s)
+      0 unique,     0 total handle leak(s)
+      0 unique,     0 total warning(s)
+      0 unique,     0 total,      0 byte(s) of leak(s)
+      0 unique,     0 total,      0 byte(s) of possible leak(s)
+ERRORS IGNORED:
+     20 potential error(s) (suspected false positives)
+         (details: C:\Users\Michael\AppData\Roaming\Dr. Memory\DrMemory-Project.exe.27520.000\potential_errors.txt)
+      1 potential leak(s) (suspected false positives)
+         (details: C:\Users\Michael\AppData\Roaming\Dr. Memory\DrMemory-Project.exe.27520.000\potential_errors.txt)
+     45 unique,    45 total,  15365 byte(s) of still-reachable allocation(s)
+         (re-run with "-show_reachable" for details)
+Details: C:\Users\Michael\AppData\Roaming\Dr. Memory\DrMemory-Project.exe.27520.000\results.txt
