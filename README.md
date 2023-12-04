@@ -15,8 +15,8 @@ Student1: Zhenghan Li
 
 Student2: Yifan Zhang
 
-    Section: [Insert your lab section]
+    Section: [L01]
 
-    MacID: [Insert your macID here]
+    MacID: [zhany902]
 
-    StudentID: [Insert your numerical student ID here]
+    StudentID: [400364347]
